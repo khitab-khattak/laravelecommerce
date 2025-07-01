@@ -6,7 +6,7 @@
             <h3>Brands</h3>
             <ul class="breadcrumbs flex items-center flex-wrap justify-start gap10">
                 <li>
-                    <a href="index.html">
+                    <a href="{{ route('admin.index') }}">
                         <div class="text-tiny">Dashboard</div>
                     </a>
                 </li>
@@ -32,7 +32,7 @@
                         </div>
                     </form>
                 </div>
-                <a class="tf-button style-1 w208" href="add-brand.html"><i
+                <a class="tf-button style-1 w208" href="{{ route('admin.add-brands') }}"><i
                         class="icon-plus"></i>Add new</a>
             </div>
             <div class="wg-table table-all-user">
@@ -53,7 +53,8 @@
                                 <td>{{ $brand->id }}</td>
                                 <td class="pname">
                                     <div class="image">
-                                        <img src="{{ asset('uploads/brands')}}/{{ $brand->image }}" alt="image" class="image">
+                                        <img src="{{ asset($brand->image) }}" alt="{{ $brand->name }}">
+
                                     </div>
                                     <div class="name">
                                         <a href="#" class="body-title-2">{{ $brand->name }}</a>
