@@ -75,16 +75,57 @@
                                                     </div>
                                                 </a>
 
-                                                <form action="{{ route('admin.delete-brands', $brand->id) }}" method="POST"
-                                                    onsubmit="return confirm('Are you sure?')">
+                                                <!-- Open Delete Modal -->
+                                                <button type="button" data-bs-toggle="modal"
+                                                    data-bs-target="#confirmModal-{{ $brand->id }}"
+                                                    class="item text-danger delete border-0 bg-transparent p-0"
+                                                    title="Delete">
+                                                    <i class="icon-trash-2"></i>
+                                                </button>
+                                                <!-- Modal + Form -->
+                                                <form action="{{ route('admin.delete-brands', $brand->id) }}"
+                                                    method="POST">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit"
-                                                        class="item text-danger delete border-0 bg-transparent p-0"
-                                                        title="Delete">
-                                                        <i class="icon-trash-2"></i>
-                                                    </button>
+
+                                                    <div class="modal fade" id="confirmModal-{{ $brand->id }}"
+                                                        tabindex="-1" aria-labelledby="confirmModalLabel"
+                                                        aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered">
+                                                            <div class="modal-content">
+
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="confirmModalLabel">Confirm
+                                                                        Deletion</h5>
+                                                                    <button type="button" class="btn-close"
+                                                                        data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+
+                                                                <div class="modal-body text-center">
+                                                                    <i
+                                                                        class="fas fa-exclamation-triangle warning-icon text-warning fs-2"></i>
+                                                                    <p class="mb-0">Are you sure you want to delete this
+                                                                        Brand?<br>This action cannot be undone.</p>
+                                                                </div>
+
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary"
+                                                                        data-bs-dismiss="modal">
+                                                                        <i class="fas fa-times me-2"></i>Cancel
+                                                                    </button>
+                                                                    <button type="submit" class="btn btn-danger">
+                                                                        <i class="fas fa-trash-alt me-2"></i>Delete
+                                                                    </button>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </form>
+
+
+
+
 
                                             </div>
                                         </td>
