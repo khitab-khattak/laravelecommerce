@@ -1,9 +1,10 @@
 @extends('layouts.admin')
 
 @section('content')
+<div class="main-content-inner">
     <div class="main-content-wrap">
         <div class="flex items-center flex-wrap justify-between gap20 mb-27">
-            <h3>Edit Brand</h3>
+            <h3>Edit Category</h3>
             <ul class="breadcrumbs flex items-center flex-wrap justify-start gap10">
                 <li>
                     <a href="#">
@@ -13,36 +14,36 @@
                 <li><i class="icon-chevron-right"></i></li>
                 <li>
                     <a href="#">
-                        <div class="text-tiny">Brands</div>
+                        <div class="text-tiny">Category</div>
                     </a>
                 </li>
                 <li><i class="icon-chevron-right"></i></li>
                 <li>
-                    <div class="text-tiny">Edit Brand</div>
+                    <div class="text-tiny">Edit Category</div>
                 </li>
             </ul>
         </div>
 
-        <!-- Edit Brand Form -->
+        <!-- Edit Category Form -->
         <div class="wg-box">
             <form class="form-new-product form-style-1"
-                action="{{ route('admin.update-brands',$brand->id) }}"
+                action="{{ route('admin.update-category',$category->id) }}"
                 method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
-                <!-- Brand Name -->
+                <!-- Category Name -->
                 <fieldset class="name">
-                    <div class="body-title">Brand Name <span class="tf-color-1">*</span></div>
-                    <input class="flex-grow" type="text" placeholder="Brand name" name="name"
-                        value="{{ old('name', $brand->name) }}" required>
+                    <div class="body-title">Category Name <span class="tf-color-1">*</span></div>
+                    <input class="flex-grow" type="text" placeholder="Category name" name="name"
+                        value="{{ old('name', $category->name) }}" required>
                 </fieldset>
 
-                <!-- Brand Slug -->
+                <!-- category Slug -->
                 <fieldset class="name">
-                    <div class="body-title">Brand Slug <span class="tf-color-1">*</span></div>
-                    <input class="flex-grow @error('slug') is-invalid @enderror\" type="text" placeholder="Brand slug" name="slug"
-                        value="{{ old('slug', $brand->slug) }}" required>
+                    <div class="body-title">category Slug <span class="tf-color-1">*</span></div>
+                    <input class="flex-grow @error('slug') is-invalid @enderror\" type="text" placeholder="Category slug" name="slug"
+                        value="{{ old('slug', $category->slug) }}" required>
                 </fieldset>
                 @error('slug')
                 <div class="alert alert-danger text-center" role="alert">
@@ -62,10 +63,10 @@
                                    for="myFile"
                                    style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
                 
-                                <!-- Image Preview: Show existing brand image -->
+                                <!-- Image Preview: Show existing category image -->
                                 <div id="imgpreview" style="display: block;">
                                     <img id="previewImage"
-                                    src="{{ asset('uploads/brands/' . $brand->image) }}"
+                                    src="{{ asset('uploads/images/' . $category->image) }}"
                                     alt="Image Preview"
                                     style="max-height: 150px; border-radius: 8px; background: transparent; box-shadow: none;" />
                                
@@ -96,6 +97,7 @@
             </form>
         </div>
     </div>
+</div>
 @endsection
 
 @push('scripts')

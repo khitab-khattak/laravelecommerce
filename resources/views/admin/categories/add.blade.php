@@ -1,0 +1,105 @@
+@extends('layouts.admin')
+@section('content')
+<div class="main-content-inner">
+    <!-- main-content-wrap -->
+    <div class="main-content-wrap">
+        <div class="flex items-center flex-wrap justify-between gap20 mb-27">
+            <h3>Category infomation</h3>
+            <ul class="breadcrumbs flex items-center flex-wrap justify-start gap10">
+                <li>
+                    <a href="#">
+                        <div class="text-tiny">Dashboard</div>
+                    </a>
+                </li>
+                <li>
+                    <i class="icon-chevron-right"></i>
+                </li>
+                <li>
+                    <a href="#">
+                        <div class="text-tiny">Categories</div>
+                    </a>
+                </li>
+                <li>
+                    <i class="icon-chevron-right"></i>
+                </li>
+                <li>
+                    <div class="text-tiny">New Category</div>
+                </li>
+            </ul>
+        </div>
+        <!-- new-category -->
+        <div class="wg-box">
+            <form class="form-new-product form-style-1" action="{{ route('admin.store-category') }}" method="POST"
+                enctype="multipart/form-data">
+                @csrf
+                <fieldset class="name">
+                    <div class="body-title">Category Name <span class="tf-color-1">*</span>
+                    </div>
+                    <input class="flex-grow" type="text" placeholder="Category name" name="name"
+                        tabindex="0" value="" aria-required="true" required="">
+                </fieldset>
+                <fieldset class="name">
+                    <div class="body-title">Category Slug <span class="tf-color-1">*</span>
+                    </div>
+                    <input class="flex-grow" type="text" placeholder="Category Slug" name="slug"
+                        tabindex="0" value="" aria-required="true" required="">
+                </fieldset>
+                <fieldset class="mb-6">
+                    <div class="body-title mb-2">
+                        Upload Image <span class="tf-color-1">*</span>
+                    </div>
+
+                    <div class="upload-image flex-grow">
+                        <div id="upload-file" class="item up-load relative bg-transparent">
+                            <label class="uploadfile cursor-pointer block text-center p-4 bg-white rounded-md"
+                                for="myFile"
+                                style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+
+                                <!-- Image Preview (no visual separation) -->
+                                <div id="imgpreview" style="display: none;">
+                                    <img id="previewImage" src="#" alt="Image Preview"
+                                        style="max-height: 150px; border-radius: 8px; background: transparent; box-shadow: none;" />
+                                </div>
+
+                                <!-- Upload Icon and Text -->
+                                <span class="icon">
+                                    <i class="icon-upload-cloud text-2xl"></i>
+                                </span>
+                                <span class="body-text">
+                                    Drop your images here or
+                                    <span class="tf-color underline">click to browse</span>
+                                </span>
+
+                                <input type="file" id="myFile" name="image" accept="image/*" class="hidden">
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="bot">
+                    <div></div>
+                    <button class="tf-button w208" type="submit">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+    
+@endsection
+@push('scripts')
+    <script>
+        document.getElementById('myFile').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            const previewImage = document.getElementById('previewImage');
+            const previewContainer = document.getElementById('imgpreview');
+
+            if (file) {
+                const imageUrl = URL.createObjectURL(file);
+                previewImage.src = imageUrl;
+                previewContainer.style.display = 'block';
+            } else {
+                previewImage.src = '#';
+                previewContainer.style.display = 'none';
+            }
+        });
+    </script>
+@endpush

@@ -41,7 +41,7 @@
                         <div class="center-item">
                             <div class="center-heading">Main Home</div>
                             <ul class="menu-list">
-                                <li class="menu-item">
+                                <li class="menu-item {{ Request::segment(2) == 'dashboard' ? 'active' : '' }}">
                                     <a href="{{ route('admin.index') }}" class="">
                                         <div class="icon"><i class="icon-grid"></i></div>
                                         <div class="text">Dashboard</div>
@@ -69,42 +69,48 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="menu-item has-children">
+                                <li class="menu-item has-children {{ in_array(Request::segment(2), ['brands', 'add-brands']) ? 'active' : '' }}">
                                     <a href="javascript:void(0);" class="menu-item-button">
                                         <div class="icon"><i class="icon-layers"></i></div>
                                         <div class="text">Brand</div>
                                     </a>
                                     <ul class="sub-menu">
-                                        <li class="sub-menu-item">
+                                        <li class="sub-menu-item {{ Request::segment(2) == 'add-brands' ? 'active' : '' }}">
                                             <a href="{{route('admin.add-brands')}}" class="">
                                                 <div class="text">New Brand</div>
                                             </a>
                                         </li>
-                                        <li class="sub-menu-item">
+                                        <li class="sub-menu-item {{ Request::segment(2) == 'brands' ? 'active' : '' }}">
                                             <a href="{{ route('admin.brands') }}" class="">
                                                 <div class="text">Brands</div>
                                             </a>
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="menu-item has-children">
-                                    <a href="javascript:void(0);" class="menu-item-button">
-                                        <div class="icon"><i class="icon-layers"></i></div>
-                                        <div class="text">Category</div>
-                                    </a>
-                                    <ul class="sub-menu">
-                                        <li class="sub-menu-item">
-                                            <a href="add-category.html" class="">
-                                                <div class="text">New Category</div>
-                                            </a>
-                                        </li>
-                                        <li class="sub-menu-item">
-                                            <a href="categories.html" class="">
-                                                <div class="text">Categories</div>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
+                                @php
+                                $currentRoute = Route::currentRouteName();
+                            @endphp
+                            
+                            <li class="menu-item has-children {{ in_array($currentRoute, ['admin.add-category', 'admin.category']) ? 'active' : '' }}">
+                                <a href="javascript:void(0);" class="menu-item-button">
+                                    <div class="icon"><i class="icon-layers"></i></div>
+                                    <div class="text">Category</div>
+                                </a>
+                                <ul class="sub-menu">
+                                    <li class="sub-menu-item {{ $currentRoute == 'admin.add-category' ? 'active' : '' }}">
+                                        <a href="{{ route('admin.add-category') }}">
+                                            <div class="text">New Category</div>
+                                        </a>
+                                    </li>
+                                    <li class="sub-menu-item {{ $currentRoute == 'admin.category' ? 'active' : '' }}">
+                                        <a href="{{ route('admin.category') }}">
+                                            <div class="text">Categories</div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            
+                                
 
                                 <li class="menu-item has-children">
                                     <a href="javascript:void(0);" class="menu-item-button">

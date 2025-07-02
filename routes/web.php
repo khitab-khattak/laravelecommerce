@@ -1,4 +1,7 @@
 <?php
+
+use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AuthAdmin;
@@ -21,10 +24,20 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth', AuthAdmin::class])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.index');
     Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
-    Route::get('/admin/brands', [AdminController::class, 'brands'])->name('admin.brands');
-    Route::get('/admin/add-brands', [AdminController::class, 'brand_add'])->name('admin.add-brands');
-    Route::post('/admin/brand-store', [AdminController::class, 'brand_store'])->name('admin.store-brands');
-    Route::get('/admin/brand-edit/{id}', [AdminController::class, 'brand_edit'])->name('admin.edit-brands');
-    Route::put('/admin/brand-update/{id}', [AdminController::class, 'brand_update'])->name('admin.update-brands');
-    Route::delete('/admin/brand-delete/{id}', [AdminController::class, 'brand_delete'])->name('admin.delete-brands');
+    //BRANDS
+    Route::get('/admin/brands', [BrandController::class, 'brands'])->name('admin.brands');
+    Route::get('/admin/add-brands', [BrandController::class, 'brand_add'])->name('admin.add-brands');
+    Route::post('/admin/brand-store', [BrandController::class, 'brand_store'])->name('admin.store-brands');
+    Route::get('/admin/brand-edit/{id}', [BrandController::class, 'brand_edit'])->name('admin.edit-brands');
+    Route::put('/admin/brand-update/{id}', [BrandController::class, 'brand_update'])->name('admin.update-brands');
+    Route::delete('/admin/brand-delete/{id}', [BrandController::class, 'brand_delete'])->name('admin.delete-brands');
+
+    //categories
+    Route::get('/admin/category/list',[CategoryController::class, 'list'])->name('admin.category');
+    Route::get('/admin/category/add',[CategoryController::class, 'add'])->name('admin.add-category');
+    Route::post('/admin/category/store',[CategoryController::class, 'store'])->name('admin.store-category');
+    Route::get('/admin/category-edit/{id}', [CategoryController::class, 'category_edit'])->name('admin.edit-category');
+    Route::put('/admin/category-update/{id}', [CategoryController::class, 'category_update'])->name('admin.update-category');
+    Route::delete('/admin/category-delete/{id}', [CategoryController::class, 'category_delete'])->name('admin.delete-category');
+
 });

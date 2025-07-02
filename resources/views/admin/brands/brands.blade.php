@@ -59,7 +59,7 @@
                                         <td>{{ $brand->id }}</td>
                                         <td class="pname">
                                             <div class="image">
-                                                <img src="{{ asset('uploads/brands/' . $brand->image) }}" height="40">
+                                                <img src="{{ asset('uploads/images/' . $brand->image) }}" height="40">
 
                                             </div>
                                             <div class="name">
