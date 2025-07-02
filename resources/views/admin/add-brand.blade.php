@@ -37,35 +37,46 @@
                 <input class="flex-grow" type="text" placeholder="Brand slug" name="slug" required>
             </fieldset>
 
-            <!-- Image Upload with Preview -->
-            <fieldset>
-                <div class="body-title">Upload Image <span class="tf-color-1">*</span></div>
+<!-- Image Upload with Preview -->
+<fieldset class="mb-6">
+    <div class="body-title mb-2">
+        Upload Image <span class="tf-color-1">*</span>
+    </div>
 
-                <div class="upload-image flex-grow">
-                    <!-- Preview Area -->
-                    <div class="item" id="imgpreview" style="display: none;">
-                        <img id="previewImage" 
-                             src="#" 
-                             class="effect8" 
-                             alt="Image Preview" 
-                             style="max-height: 150px; border-radius: 8px;" />
-                    </div>
+    <div class="upload-image flex-grow">
+        <div id="upload-file" class="item up-load relative bg-transparent">
+            <label class="uploadfile cursor-pointer block text-center p-4 bg-white rounded-md" for="myFile"
+                   style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
 
-                    <!-- Upload Button -->
-                    <div id="upload-file" class="item up-load">
-                        <label class="uploadfile" for="myFile">
-                            <span class="icon">
-                                <i class="icon-upload-cloud"></i>
-                            </span>
-                            <span class="body-text">
-                                Drop your images here or select 
-                                <span class="tf-color">click to browse</span>
-                            </span>
-                            <input type="file" id="myFile" name="image" accept="image/*">
-                        </label>
-                    </div>
+                <!-- Image Preview (no visual separation) -->
+                <div id="imgpreview" style="display: none;">
+                    <img id="previewImage"
+                         src="#"
+                         alt="Image Preview"
+                         style="max-height: 150px; border-radius: 8px; background: transparent; box-shadow: none;" />
                 </div>
-            </fieldset>
+
+                <!-- Upload Icon and Text -->
+                <span class="icon">
+                    <i class="icon-upload-cloud text-2xl"></i>
+                </span>
+                <span class="body-text">
+                    Drop your images here or 
+                    <span class="tf-color underline">click to browse</span>
+                </span>
+
+                <input type="file"
+                       id="myFile"
+                       name="image"
+                       accept="image/*"
+                       class="hidden">
+            </label>
+        </div>
+    </div>
+</fieldset>
+
+
+
 
             <!-- Submit Button -->
             <div class="bot">
