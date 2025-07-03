@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AuthAdmin;
@@ -39,5 +40,11 @@ Route::middleware(['auth', AuthAdmin::class])->group(function () {
     Route::get('/admin/category-edit/{id}', [CategoryController::class, 'category_edit'])->name('admin.edit-category');
     Route::put('/admin/category-update/{id}', [CategoryController::class, 'category_update'])->name('admin.update-category');
     Route::delete('/admin/category-delete/{id}', [CategoryController::class, 'category_delete'])->name('admin.delete-category');
+
+    //products
+    Route::get('/admin/product/list',[ProductController::class, 'list'])->name('admin.products');
+
+    Route::get('/admin/product/add',[ProductController::class, 'add'])->name('admin.add-products');
+    Route::post('/admin/product/store',[ProductController::class, 'store'])->name('admin.store-products');
 
 });

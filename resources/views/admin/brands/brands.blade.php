@@ -18,7 +18,11 @@
                     </li>
                 </ul>
             </div>
-
+            @if (session('success'))
+                <div class="alert alert-success text-center text-xl mt-4">
+                    {{ session('success') }}
+                </div>
+            @endif
 
             <div class="wg-box">
                 <div class="flex items-center justify-between gap10 flex-wrap">
@@ -36,11 +40,6 @@
                     <a class="tf-button style-1 w208" href="{{ route('admin.add-brands') }}"><i class="icon-plus"></i>Add
                         new</a>
                 </div>
-                @if (session('success'))
-                    <div class="alert alert-success text-center text-xl mt-4">
-                        {{ session('success') }}
-                    </div>
-                @endif
 
                 <div class="wg-table table-all-user">
                     <div class="table-responsive">
@@ -59,7 +58,7 @@
                                         <td>{{ $brand->id }}</td>
                                         <td class="pname">
                                             <div class="image">
-                                                <img src="{{ asset('uploads/images/' . $brand->image) }}" height="40">
+                                                <img src="{{ asset('uploads/brands/' . $brand->image) }}" height="40">
 
                                             </div>
                                             <div class="name">

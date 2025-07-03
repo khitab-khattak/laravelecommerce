@@ -49,21 +49,24 @@
                                 </li>
                             </ul>
                         </div>
+                        @php
+                        $currentRoute = Route::currentRouteName();
+                    @endphp
                         <div class="center-item">
                             <ul class="menu-list">
-                                <li class="menu-item has-children">
+                                <li class="menu-item has-children {{ in_array($currentRoute, ['admin.add-product', 'admin.products']) ? 'active' : '' }}">
                                     <a href="javascript:void(0);" class="menu-item-button">
                                         <div class="icon"><i class="icon-shopping-cart"></i></div>
                                         <div class="text">Products</div>
                                     </a>
                                     <ul class="sub-menu">
                                         <li class="sub-menu-item">
-                                            <a href="add-product.html" class="">
+                                            <a href="{{route('admin.add-products')}}" class="">
                                                 <div class="text">Add Product</div>
                                             </a>
                                         </li>
                                         <li class="sub-menu-item">
-                                            <a href="products.html" class="">
+                                            <a href="{{ route('admin.products')}}" class="">
                                                 <div class="text">Products</div>
                                             </a>
                                         </li>
@@ -87,9 +90,7 @@
                                         </li>
                                     </ul>
                                 </li>
-                                @php
-                                $currentRoute = Route::currentRouteName();
-                            @endphp
+                              
                             
                             <li class="menu-item has-children {{ in_array($currentRoute, ['admin.add-category', 'admin.category']) ? 'active' : '' }}">
                                 <a href="javascript:void(0);" class="menu-item-button">

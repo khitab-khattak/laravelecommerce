@@ -35,7 +35,7 @@ class BrandController extends Controller
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $filename = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('uploads/images/'), $filename);
+            $file->move(public_path('uploads/brands/'), $filename);
             $brand->image = $filename; // ✅ Store only filename
         }
         
@@ -65,7 +65,7 @@ class BrandController extends Controller
     
         if ($request->hasFile('image')) {
             // Delete old image
-            $oldPath = public_path('uploads/images/' . $brand->image);
+            $oldPath = public_path('uploads/brands/' . $brand->image);
             if ($brand->image && file_exists($oldPath)) {
                 unlink($oldPath);
             }
@@ -73,7 +73,7 @@ class BrandController extends Controller
             // Save new image
             $file = $request->file('image');
             $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('uploads/images'), $filename);
+            $file->move(public_path('uploads/brands'), $filename);
             $brand->image = $filename;
         }
     
@@ -87,9 +87,9 @@ class BrandController extends Controller
     $brand = Brand::findOrFail($id);
 
     // Full path to image
-    $imagePath = public_path('uploads/images/' . $brand->image);
+    $imagePath = public_path('uploads/brands/' . $brand->image);
 
-    // ✅ Delete image from uploads/images/ if it exists
+    // ✅ Delete image from uploads/brands/ if it exists
     if (!empty($brand->image) && file_exists($imagePath)) {
         unlink($imagePath);
     }

@@ -64,7 +64,7 @@
 
                                     <!-- Image Preview: Show existing brand image -->
                                     <div id="imgpreview" style="display: block;">
-                                        <img id="previewImage" src="{{ asset('uploads/images/' . $brand->image) }}"
+                                        <img id="previewImage" src="{{ asset('uploads/brands/' . $brand->image) }}"
                                             alt="Image Preview"
                                             style="max-height: 150px; border-radius: 8px; background: transparent; box-shadow: none;" />
 

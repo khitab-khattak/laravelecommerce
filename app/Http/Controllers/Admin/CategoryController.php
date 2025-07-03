@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Brand;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -33,7 +34,7 @@ class CategoryController extends Controller
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $filename = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('uploads/images/'), $filename);
+            $file->move(public_path('uploads/categories/'), $filename);
             $category->image = $filename; // ✅ Store only filename
         }
         
@@ -63,7 +64,7 @@ class CategoryController extends Controller
     
         if ($request->hasFile('image')) {
             // Delete old image
-            $oldPath = public_path('uploads/images/' . $category->image);
+            $oldPath = public_path('uploads/categories/' . $category->image);
             if ($category->image && file_exists($oldPath)) {
                 unlink($oldPath);
             }
@@ -71,7 +72,7 @@ class CategoryController extends Controller
             // Save new image
             $file = $request->file('image');
             $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('uploads/images'), $filename);
+            $file->move(public_path('uploads/categories'), $filename);
             $category->image = $filename;
         }
     
@@ -85,9 +86,9 @@ class CategoryController extends Controller
     $category = Category::findOrFail($id);
 
     // Full path to image
-    $imagePath = public_path('uploads/images/' . $category->image);
+    $imagePath = public_path('uploads/categories/' . $category->image);
 
-    // ✅ Delete image from uploads/images/ if it exists
+    // ✅ Delete image from uploads/categories/ if it exists
     if (!empty($category->image) && file_exists($imagePath)) {
         unlink($imagePath);
     }

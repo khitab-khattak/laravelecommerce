@@ -66,7 +66,7 @@
                                 <!-- Image Preview: Show existing category image -->
                                 <div id="imgpreview" style="display: block;">
                                     <img id="previewImage"
-                                    src="{{ asset('uploads/images/' . $category->image) }}"
+                                    src="{{ asset('uploads/categories/' . $category->image) }}"
                                     alt="Image Preview"
                                     style="max-height: 150px; border-radius: 8px; background: transparent; box-shadow: none;" />
                                
