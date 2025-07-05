@@ -33,7 +33,7 @@ class ProductController extends Controller
             'short_description' => 'required|string|max:255',
             'description'       => 'required|string',
             'regular_price'     => 'required|numeric',
-            'sale_price'        => 'required|numeric|lte:regular_price',
+            'sale_price'        => 'nullable|numeric|lte:regular_price',
             'SKU'               => 'required|string|max:100',
             'quantity'          => 'required|integer',
             'stock_status'      => 'required|in:instock,outofstock',

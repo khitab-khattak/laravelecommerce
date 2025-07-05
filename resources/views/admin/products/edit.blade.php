@@ -152,7 +152,7 @@
                     <fieldset class="name">
                         <div class="body-title mb-10">Sale Price <span class="tf-color-1">*</span></div>
                         <input type="text" name="sale_price" value="{{ old('sale_price', $product->sale_price) }}"
-                               class="@error('sale_price') is-invalid @enderror" required>
+                               class="@error('sale_price') is-invalid @enderror" >
                     </fieldset>
                 </div>
 

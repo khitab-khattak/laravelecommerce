@@ -176,7 +176,7 @@
                             <div class="body-title mb-10">Sale Price <span class="tf-color-1">*</span></div>
                             <input class="mb-10 @error('sale_price') is-invalid @enderror" type="text"
                                 placeholder="Enter sale price" name="sale_price" tabindex="0"
-                                value="{{ old('sale_price') }}" aria-required="true" required="">
+                                value="{{ old('sale_price') }}" aria-required="true">
                             @error('sale_price')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
