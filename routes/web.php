@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AuthAdmin;
@@ -16,7 +17,8 @@ Route::get('/', function () {
 
 Route::get('/shop',[ShopController::class,'index'])->name('shop.index');
 Route::get('/shop/{product_slug}',[ShopController::class, 'product_details'])->name('shop.product-details');
-
+Route::get('/cart',[CartController::class,'index'])->name('cart.index');
+Route::post('/cart/add',[CartController::class,'add_to_cart'])->name('cart.add');
 Auth::routes();
 
 // USER dashboard
