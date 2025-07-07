@@ -320,7 +320,7 @@
                 <div class="swiper-wrapper">
                   {{-- Main Image --}}
                   <div class="swiper-slide">
-                    <a href="#">
+                    <a href="{{ route('shop.product-details',$product->slug) }}">
                       <img loading="lazy" src="{{ asset('uploads/products/' . $product->image) }}" width="330" height="400" alt="{{ $product->name }}" class="pc__img">
                     </a>
                   </div>
@@ -329,7 +329,7 @@
                   @if (!empty($product->images))
                     @foreach (json_decode($product->images, true) as $galleryImage)
                     <div class="swiper-slide">
-                      <a href="#">
+                      <a href="{{ route('shop.product-details',$product->slug) }}">
                         <img loading="lazy" src="{{ asset('uploads/products/gallery/' . $galleryImage) }}" width="330" height="400" alt="{{ $product->name }}" class="pc__img">
                       </a>
                     </div>
@@ -357,7 +357,7 @@
               <p class="pc__category">{{ $product->category->name ?? 'Uncategorized' }}</p>
       
               <h6 class="pc__title">
-                <a href="#">{{ $product->name }}</a>
+                <a href="{{ route('shop.product-details',$product->slug) }}">{{ $product->name }}</a>
               </h6>
       
               <div class="product-card__price d-flex">
@@ -375,14 +375,6 @@
                 </svg>
               </button>
             </div>
-      
-            @if ($product->is_new ?? false)
-            <div class="pc-labels position-absolute top-0 start-0 w-100 d-flex justify-content-between">
-              <div class="pc-labels__left">
-                <span class="pc-label pc-label_new d-block bg-white">NEW</span>
-              </div>
-            </div>
-            @endif
           </div>
         </div>
         @endforeach
