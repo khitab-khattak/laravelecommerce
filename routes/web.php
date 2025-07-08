@@ -21,6 +21,9 @@ Route::get('/cart',[CartController::class,'index'])->name('cart.index');
 Route::post('/cart/add',[CartController::class,'add_to_cart'])->name('cart.add');
 Route::put('cart/increase-quantity/{rowId}',[CartController::class , 'increase_cart_quantity'])->name('cart.qty.increase');
 Route::put('cart/decrease-quantity/{rowId}',[CartController::class , 'decrease_cart_quantity'])->name('cart.qty.decrease');
+Route::delete('cart/delete/{rowId}',[CartController::class , 'delete_cart_item'])->name('cart.remove');
+Route::delete('cart/clear', [CartController::class, 'clear_cart'])->name('cart.clear');
+
 Auth::routes();
 
 // USER dashboard

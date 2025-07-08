@@ -39,5 +39,18 @@ class CartController extends Controller
         }
         return redirect()->back();
     }
+
+    public function delete_cart_item($rowId){
+        Cart::instance('cart')->remove($rowId);
+        return redirect()->back()->with('success','Item Removed Sucessfully');
+
+    }
+
+    public function clear_cart()
+    {
+        Cart::instance('cart')->destroy();
+        return redirect()->back()->with('success', 'Cart cleared successfully');
+    }
+    
     
 }

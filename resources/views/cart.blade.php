@@ -4,6 +4,12 @@
         <div class="mb-4 pb-4"></div>
         <section class="shop-checkout container">
             <h2 class="page-title">Cart</h2>
+            @if (session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
             <div class="checkout-steps">
                 <a href="javascript:void(0)" class="checkout-steps__item active">
                     <span class="checkout-steps__item-number">01</span>
@@ -67,13 +73,13 @@
                                             <div class="qty-control position-relative">
                                                 <input type="number" name="quantity" value="{{ $item->qty }}"
                                                     min="1" class="qty-control__number text-center">
-                                                    <form action="{{ route('cart.qty.decrease', $item->rowId) }}"
-                                                        method="POST">
-                                                        @csrf
-                                                        @method('put')
-                                                        <div class="qty-control__reduce">-</div>
-                                                    </form>
-                                                
+                                                <form action="{{ route('cart.qty.decrease', $item->rowId) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('put')
+                                                    <div class="qty-control__reduce">-</div>
+                                                </form>
+
                                                 <form action="{{ route('cart.qty.increase', $item->rowId) }}"
                                                     method="POST">
                                                     @csrf
@@ -86,15 +92,23 @@
                                             <span class="shopping-cart__subtotal">${{ $item->subTotal() }}</span>
                                         </td>
                                         <td>
-                                            <a href="#" class="remove-cart">
-                                                <svg width="10" height="10" viewBox="0 0 10 10" fill="#767676"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <path
-                                                        d="M0.259435 8.85506L9.11449 0L10 0.885506L1.14494 9.74056L0.259435 8.85506Z" />
-                                                    <path
-                                                        d="M0.885506 0.0889838L9.74057 8.94404L8.85506 9.82955L0 0.97449L0.885506 0.0889838Z" />
-                                                </svg>
-                                            </a>
+                                            <form action="{{ route('cart.remove', $item->rowId) }}" method="POST"
+                                                style="display:inline">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit" class="remove-cart"
+                                                    style="background:none;border:none;padding:0;">
+                                                    <svg width="10" height="10" viewBox="0 0 10 10" fill="#767676"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <path
+                                                            d="M0.259435 8.85506L9.11449 0L10 0.885506L1.14494 9.74056L0.259435 8.85506Z" />
+                                                        <path
+                                                            d="M0.885506 0.0889838L9.74057 8.94404L8.85506 9.82955L0 0.97449L0.885506 0.0889838Z" />
+                                                    </svg>
+                                                </button>
+                                            </form>
+
+
                                         </td>
                                     </tr>
                                 @endforeach
@@ -106,7 +120,12 @@
                                 <input class="btn-link fw-medium position-absolute top-0 end-0 h-100 px-4" type="submit"
                                     value="APPLY COUPON">
                             </form>
-                            <button class="btn btn-light">UPDATE CART</button>
+                            <form action="{{route('cart.clear')}}" method="post">
+                                @csrf
+                                @method('delete')
+                                <button type="submit" class="btn btn-light">CLEAR CART</button>
+                            </form>
+                            
                         </div>
                     </div>
                     <div class="shopping-cart__totals-wrapper">
@@ -154,15 +173,15 @@
     </main>
 @endsection
 @push('scripts')
-<script>
-    $(function(){
-        $(".qty-control__increase").on("click", function(){
-            $(this).closest('form').submit();
-        });
+    <script>
+        $(function() {
+            $(".qty-control__increase").on("click", function() {
+                $(this).closest('form').submit();
+            });
 
-        $(".qty-control__reduce").on("click", function(){
-            $(this).closest('form').submit();
+            $(".qty-control__reduce").on("click", function() {
+                $(this).closest('form').submit();
+            });
         });
-    });
-</script>
+    </script>
 @endpush
