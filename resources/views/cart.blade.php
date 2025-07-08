@@ -46,8 +46,9 @@
                                     <tr>
                                         <td>
                                             <div class="shopping-cart__product-item">
-                                                <img loading="lazy" src="{{ asset('uploads/products/' . $item->model->image) }}" width="120"
-                                                    height="120" alt="{{ $item->name }}" />
+                                                <img loading="lazy"
+                                                    src="{{ asset('uploads/products/' . $item->model->image) }}"
+                                                    width="120" height="120" alt="{{ $item->name }}" />
                                             </div>
                                         </td>
                                         <td>
@@ -60,18 +61,29 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <span class="shopping-cart__product-price">${{$item->price}}</span>
+                                            <span class="shopping-cart__product-price">${{ $item->price }}</span>
                                         </td>
                                         <td>
                                             <div class="qty-control position-relative">
-                                                <input type="number" name="quantity" value="{{ $item->qty}}" min="1"
-                                                    class="qty-control__number text-center">
-                                                <div class="qty-control__reduce">-</div>
-                                                <div class="qty-control__increase">+</div>
+                                                <input type="number" name="quantity" value="{{ $item->qty }}"
+                                                    min="1" class="qty-control__number text-center">
+                                                    <form action="{{ route('cart.qty.decrease', $item->rowId) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('put')
+                                                        <div class="qty-control__reduce">-</div>
+                                                    </form>
+                                                
+                                                <form action="{{ route('cart.qty.increase', $item->rowId) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('put')
+                                                    <div class="qty-control__increase">+</div>
+                                                </form>
                                             </div>
                                         </td>
                                         <td>
-                                            <span class="shopping-cart__subtotal">${{ $item->subTotal()}}</span>
+                                            <span class="shopping-cart__subtotal">${{ $item->subTotal() }}</span>
                                         </td>
                                         <td>
                                             <a href="#" class="remove-cart">
@@ -104,8 +116,8 @@
                                 <table class="cart-totals">
                                     <tbody>
                                         <tr>
-                                            <th>{{ Cart::instance('cart')->Subtotal() }}</th>
-                                            <td>$1300</td>
+                                            <th>Subtotal</th>
+                                            <td>${{ Cart::instance('cart')->subtotal() }}</td>
                                         </tr>
                                         <tr>
                                             <th>Shipping</th>
@@ -113,11 +125,11 @@
                                         </tr>
                                         <tr>
                                             <th>VAT</th>
-                                            <td>${{Cart::instance('cart')->tax()}}</td>
+                                            <td>${{ Cart::instance('cart')->tax() }}</td>
                                         </tr>
                                         <tr>
                                             <th>Total</th>
-                                            <td>${{Cart::instance('cart')->total()}}</td>
+                                            <td>${{ Cart::instance('cart')->total() }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -141,3 +153,16 @@
         </section>
     </main>
 @endsection
+@push('scripts')
+<script>
+    $(function(){
+        $(".qty-control__increase").on("click", function(){
+            $(this).closest('form').submit();
+        });
+
+        $(".qty-control__reduce").on("click", function(){
+            $(this).closest('form').submit();
+        });
+    });
+</script>
+@endpush
