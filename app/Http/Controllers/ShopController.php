@@ -7,10 +7,14 @@ use App\Models\Product;
 
 class ShopController extends Controller
 {
-    public function index(){
-        $products = Product::orderBy('created_at','DESC')->paginate(10);
-        return view('shop',compact('products'));
-    }
+    public function index(Request $request)
+{
+    $size = $request->query('size', 12); // default is 12 if not selected
+    $products = Product::orderBy('created_at', 'desc')->paginate($size);
+
+    return view('shop', compact('products', 'size'));
+}
+
 
     public function product_details($product_slug){
         $product = Product::where('slug',$product_slug)->first();
