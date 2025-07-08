@@ -11,8 +11,8 @@ use Illuminate\Support\Str;
 class CategoryController extends Controller
 {
     public function list(){
-        $category = Category::orderBy('id', 'DESC')->paginate(10);
-        return view('admin/categories/list',compact('category'));
+        $categories = Category::orderBy('id', 'DESC')->paginate(10);
+        return view('admin/categories/list',compact('categories'));
     }
 
     public function add(){

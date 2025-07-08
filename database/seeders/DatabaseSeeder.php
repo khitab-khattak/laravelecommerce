@@ -19,7 +19,6 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         Product::factory()->count(50)->create();
-        Category::factory()->count(20)->create();
-        Brand::factory()->count(20)->create();
+        
     }
 }
