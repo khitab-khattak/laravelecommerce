@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Brand;
+use App\Models\Category;
 
 class ShopController extends Controller
 {
@@ -13,6 +14,7 @@ class ShopController extends Controller
         $size = $request->query('size', 12);
         $order = $request->query('order', -1);
         $f_brands = $request->query('brands', '');
+        $f_categories = $request->query('categories', '');
 
         $o_column = 'id';
         $o_order = 'DESC';
@@ -38,9 +40,13 @@ class ShopController extends Controller
         }
 
         $brandIds = array_filter(explode(',', $f_brands));
+        $categoryIds = array_filter(explode(',', $f_categories));
 
         $query = Product::query();
 
+        if (!empty($categoryIds)) {
+            $query->whereIn('category_id', $categoryIds);
+        }
         // Filter by brands if selected
         if (!empty($brandIds)) {
             $query->whereIn('brand_id', $brandIds);
@@ -54,10 +60,11 @@ class ShopController extends Controller
         }
 
         $products = $query->paginate($size)->withQueryString();
+        $categories = Category::orderBy('name','ASC')->get();
 
         $brands = Brand::withCount('products')->orderBy('name', 'ASC')->get();
 
-        return view('shop', compact('products', 'size', 'order', 'brands', 'f_brands'));
+        return view('shop', compact('products', 'size', 'order', 'brands', 'f_brands','categories','f_categories'));
     }
 
 

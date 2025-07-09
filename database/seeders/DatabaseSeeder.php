@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\User;
 use App\Models\Product;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Support\Arr;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -16,9 +17,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        Product::factory()->count(50)->create();
-        
+        $categories = Category::factory(10)->create();
+        $brands = Brand::factory(10)->create();
+    
+        $categoryIds = $categories->pluck('id')->toArray();
+        $brandIds = $brands->pluck('id')->toArray();
+    
+        Product::factory(50)->state(function () use ($categoryIds, $brandIds) {
+            return [
+                'category_id' => Arr::random($categoryIds),
+                'brand_id'    => Arr::random($brandIds),
+            ];
+        })->create();
     }
 }

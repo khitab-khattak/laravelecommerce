@@ -30,9 +30,16 @@
                             aria-labelledby="accordion-heading-1" data-bs-parent="#categories-list">
                             <div class="accordion-body px-0 pb-0 pt-3">
                                 <ul class="list list-inline mb-0">
-                                    @foreach ($products as $product)
+                                    @foreach ($categories as $category)
                                         <li class="list-item">
-                                            <a href="#" class="menu-link py-1">{{ $product->category->name }}</a>
+                                            <span class="menu-link py-1">
+                                                <input type="checkbox" name="categories" value="{{ $category->id }}"
+                                                class="chk-category"
+                                                {{ in_array($category->id, explode(',', $f_categories)) ? 'checked' : '' }}>
+                                            </span>
+                                            <span class="text-right float-end">
+                                                {{ $category->products->count() }}
+                                            </span>
                                         </li>
                                     @endforeach
 
@@ -465,6 +472,7 @@
         <input type="hidden" name="size" id="size" value="{{ $size }}">
         <input type="hidden" name="order" id="order" value="{{ $order }}">
         <input type="hidden" name="brands" id="hdnBrands" value="{{ $f_brands }}">
+        <input type="hidden" name="categories" id="hdncategories" value="{{ $f_categories }}">
 
     </form>
 @endsection
@@ -487,6 +495,14 @@
                     brands.push($(this).val());
                 });
                 $("#hdnBrands").val(brands.join(','));
+                $("#frmfilter").submit();
+            });
+            $("input[name='categories']").on("change", function() {
+                var brands = [];
+                $("input[name='categories']:checked").each(function() {
+                    brands.push($(this).val());
+                });
+                $("#hdncategories").val(brands.join(','));
                 $("#frmfilter").submit();
             });
         });
