@@ -120,6 +120,7 @@
                 </div>
 
 
+
                 <div class="accordion" id="brand-filters">
                     <div class="accordion-item mb-4 pb-3">
                         <h5 class="accordion-header" id="accordion-heading-brand">
@@ -139,23 +140,19 @@
                         <div id="accordion-filter-brand" class="accordion-collapse collapse show border-0"
                             aria-labelledby="accordion-heading-brand" data-bs-parent="#brand-filters">
                             <div class="search-field multi-select accordion-body px-0 pb-0">
-                                <select class="d-none" multiple name="total-numbers-list">
-                                    @foreach ($products as $product)
-                                        <option value="{{ $product->brand_id }}">{{ $product->brand->name }}</option>
-                                    @endforeach
-
-                                </select>
-                                <div class="search-field__input-wrapper mb-3">
-                                    <input type="text" name="search_text"
-                                        class="search-field__input form-control form-control-sm border-light border-2"
-                                        placeholder="Search" />
-                                </div>
-                                <ul class="multi-select__list list-unstyled">
-                                    @foreach ($products as $product)
-                                        <li
-                                            class="search-suggestion__item multi-select__item text-primary js-search-select js-multi-select">
-                                            <span class="me-auto">{{ $product->brand->name }}</span>
-                                            <span class="text-secondary">{{ $product->quantity }}</span>
+                                <ul class="list list-inline mb-0 brand-list">
+                                    @foreach ($brands as $brand)
+                                        <li class="list-item">
+                                            <label
+                                                class="menu-link py-1 d-flex justify-content-between align-items-center">
+                                                <input type="checkbox" name="brands" value="{{ $brand->id }}"
+                                                    class="chk-brand"
+                                                    {{ in_array($brand->id, explode(',', $f_brands)) ? 'checked' : '' }}>
+                                                <span>{{ $brand->name }}</span>
+                                                <span class="text-right float-end">
+                                                    {{ $brand->products->count() }}
+                                                </span>
+                                            </label>
                                         </li>
                                     @endforeach
 
@@ -318,8 +315,8 @@
                             <option value="102" {{ $size == 102 ? 'selected' : '' }}>102</option>
                         </select>
 
-                        <select class="shop-acs__select form-select w-auto border-0 py-0 order-1 order-md-0" name="orderby" id="orderby"
-                            aria-label="Sort Items">
+                        <select class="shop-acs__select form-select w-auto border-0 py-0 order-1 order-md-0"
+                            name="orderby" id="orderby" aria-label="Sort Items">
                             <option value="-1" {{ $order == -1 ? 'selected' : '' }}>Default Sorting</option>
                             <option value="1" {{ $order == 1 ? 'selected' : '' }}>Date, New to Old</option>
                             <option value="2" {{ $order == 2 ? 'selected' : '' }}>Date, Old to New</option>
@@ -467,19 +464,31 @@
         <input type="hidden" name="page" value="{{ $products->currentPage() }}">
         <input type="hidden" name="size" id="size" value="{{ $size }}">
         <input type="hidden" name="order" id="order" value="{{ $order }}">
+        <input type="hidden" name="brands" id="hdnBrands" value="{{ $f_brands }}">
+
     </form>
 @endsection
 @push('scripts')
     <script>
         $(function() {
             $("#pagesize").on("change", function() {
-                $("#size").val($("#pagesize option:selected").val());
+                $("#size").val($(this).val());
                 $("#frmfilter").submit();
-            })
+            });
+
             $("#orderby").on("change", function() {
-                $("#order").val($("#orderby option:selected").val());
+                $("#order").val($(this).val());
                 $("#frmfilter").submit();
-            })
-        })
+            });
+
+            $("input[name='brands']").on("change", function() {
+                var brands = [];
+                $("input[name='brands']:checked").each(function() {
+                    brands.push($(this).val());
+                });
+                $("#hdnBrands").val(brands.join(','));
+                $("#frmfilter").submit();
+            });
+        });
     </script>
 @endpush
