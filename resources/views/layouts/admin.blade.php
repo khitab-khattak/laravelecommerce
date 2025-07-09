@@ -54,7 +54,7 @@
                     @endphp
                         <div class="center-item">
                             <ul class="menu-list">
-                                <li class="menu-item has-children {{ in_array($currentRoute, ['admin.add-product', 'admin.products']) ? 'active' : '' }}">
+                                <li class="menu-item has-children {{ in_array($currentRoute, ['admin.add-products', 'admin.products']) ? 'active' : '' }}">
                                     <a href="javascript:void(0);" class="menu-item-button">
                                         <div class="icon"><i class="icon-shopping-cart"></i></div>
                                         <div class="text">Products</div>

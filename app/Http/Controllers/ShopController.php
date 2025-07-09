@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Brand;
 
 class ShopController extends Controller
 {
@@ -46,7 +47,8 @@ class ShopController extends Controller
             ->paginate($size);
     }
 
-    return view('shop', compact('products', 'size', 'order'));
+    $brands = Brand::orderBy('name','ASC')->get();
+    return view('shop', compact('products', 'size', 'order','brands'));
 }
 
     public function product_details($product_slug)
