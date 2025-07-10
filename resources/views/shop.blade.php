@@ -440,15 +440,35 @@
                                                 class="money price">${{ number_format($product->regular_price, 2) }}</span>
                                         @endif
                                     </div>
-
+                                    
+                                    @if (Cart::instance('wishlist')->content()->where('id', $product->id)->count() > 0)
                                     <button
+                                    class="pc__btn-wl position-absolute top-0 end-0 bg-transparent border-0 js-add-wishlist"
+                                    title="Add To Wishlist" type="submit">
+                                    <svg width="16" height="16" style="color: orange" viewBox="0 0 20 20" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <use href="#icon_heart" />
+                                    </svg>
+                                </button>
+                                </svg>
+                                @else
+                                    <form action="{{ route('wishlist.add') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="id" value="{{ $product->id }}">
+                                        <input type="hidden" name="quantity" value="1">
+                                        <input type="hidden" name="name" value="{{ $product->name }}">
+                                        <input type="hidden" name="price"
+                                            value="{{ $product->sale_price == '' ? $product->regular_price : $product->sale_price }}">
+                                        <button
                                         class="pc__btn-wl position-absolute top-0 end-0 bg-transparent border-0 js-add-wishlist"
-                                        title="Add To Wishlist">
+                                        title="Add To Wishlist" type="submit">
                                         <svg width="16" height="16" viewBox="0 0 20 20" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <use href="#icon_heart" />
                                         </svg>
                                     </button>
+                                    </form>
+                                  @endif 
                                 </div>
                             </div>
                         </div>
