@@ -30,6 +30,7 @@ Route::post('/wishlist/add',[WishlistController::class,'add_to_wishlist'])->name
 Route::get('wishlist/',[WishlistController::class,'index'])->name('wishlist.index');
 Route::delete('wishlist/delete/{rowId}',[WishlistController::class , 'remove_wishlist_item'])->name('wishlist.remove');
 Route::delete('wishlist/clear', [WishlistController::class, 'clear_wishlist'])->name('wishlist.clear');
+Route::post('wishlist/move-to-cart/{rowId}', [WishlistController::class, 'move_to_cart'])->name('wishlist.movetocart');
 
 Auth::routes();
 

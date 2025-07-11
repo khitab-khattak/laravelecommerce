@@ -44,7 +44,7 @@
                                  <th>Price</th>
                                  <th>Quantity</th>
                                  <th>Subtotal</th>
-                                 <th></th>
+                                 <th>Actions</th>
                              </tr>
                          </thead>
                          <tbody>
@@ -76,21 +76,29 @@
                                          <span class="shopping-cart__subtotal">${{ $item->subtotal() }}</span>
                                      </td>
                                      <td>
-                                         <form action="{{ route('wishlist.remove', $item->rowId) }}" method="POST"
-                                             style="display:inline">
-                                             @csrf
-                                             @method('delete')
-                                             <button type="submit" class="remove-cart"
-                                                 style="background:none;border:none;padding:0;">
-                                                 <svg width="10" height="10" viewBox="0 0 10 10" fill="#767676"
-                                                 xmlns="http://www.w3.org/2000/svg">
-                                                 <path
-                                                     d="M0.259435 8.85506L9.11449 0L10 0.885506L1.14494 9.74056L0.259435 8.85506Z" />
-                                                 <path
-                                                     d="M0.885506 0.0889838L9.74057 8.94404L8.85506 9.82955L0 0.97449L0.885506 0.0889838Z" />
-                                             </svg>
-                                             </button>
-                                         </form>
+                                        <div class="d-flex align-items-center" style="gap: 0.3rem;">
+                                            {{-- Move to Cart Button --}}
+                                            <form method="POST" action="{{ route('wishlist.movetocart', $item->rowId) }}" class="me-1">
+                                                @csrf
+                                                <button class="btn btn-sm btn-warning d-flex align-items-center" type="submit">
+                                                    <i class="fas fa-shopping-cart me-1"></i> Move to Cart
+                                                </button>
+                                            </form>
+                                        
+                                            {{-- Remove from Wishlist Button --}}
+                                            <form method="POST" action="{{ route('wishlist.remove', $item->rowId) }}">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-outline-danger d-flex align-items-center" title="Remove from Wishlist">
+                                                    <svg width="12" height="12" viewBox="0 0 10 10" fill="#dc3545" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M0.259435 8.85506L9.11449 0L10 0.885506L1.14494 9.74056L0.259435 8.85506Z" />
+                                                        <path d="M0.885506 0.0889838L9.74057 8.94404L8.85506 9.82955L0 0.97449L0.885506 0.0889838Z" />
+                                                    </svg>
+                                                </button>
+                                            </form>
+                                        </div>
+                                        
+                                        
                                      </td>
                                  </tr>
                              @endforeach
@@ -98,64 +106,12 @@
                          </tbody>
                      </table>
                      <div class="cart-table-footer">
+                        
                          <form action="{{route('wishlist.clear')}}" method="post">
                             @csrf
                             @method('delete')
                             <button type="submit" class="btn btn-light">CLEAR WISHLIST</button>
                         </form>
-                     </div>
-                 </div>
-                 <div class="shopping-cart__totals-wrapper">
-                     <div class="sticky-content">
-                         <div class="shopping-cart__totals">
-                             <h3>Cart Totals</h3>
-                             <table class="cart-totals">
-                                 <tbody>
-                                     <tr>
-                                         <th>Subtotal</th>
-                                         <td>${{ Cart::instance('wishlist')->subtotal() }}</td>
-                                     </tr>
-                                     <tr>
-                                         <th>Shipping</th>
-                                         <td>
-                                             <div class="form-check">
-                                                 <input class="form-check-input form-check-input_fill" type="checkbox"
-                                                     value="" id="free_shipping">
-                                                 <label class="form-check-label" for="free_shipping">Free shipping</label>
-                                             </div>
-                                             <div class="form-check">
-                                                 <input class="form-check-input form-check-input_fill" type="checkbox"
-                                                     value="" id="flat_rate">
-                                                 <label class="form-check-label" for="flat_rate">Flat rate: $49</label>
-                                             </div>
-                                             <div class="form-check">
-                                                 <input class="form-check-input form-check-input_fill" type="checkbox"
-                                                     value="" id="local_pickup">
-                                                 <label class="form-check-label" for="local_pickup">Local pickup:
-                                                     $8</label>
-                                             </div>
-                                             <div>Shipping to AL.</div>
-                                             <div>
-                                                 <a href="#" class="menu-link menu-link_us-s">CHANGE ADDRESS</a>
-                                             </div>
-                                         </td>
-                                     </tr>
-                                     <tr>
-                                         <th>VAT</th>
-                                         <td> ${{ Cart::instance('wishlist')->tax() }}</td>
-                                     </tr>
-                                     <tr>
-                                         <th>Total</th>
-                                         <td>${{ Cart::instance('cart')->total() }}</td>
-                                     </tr>
-                                 </tbody>
-                             </table>
-                         </div>
-                         <div class="mobile_fixed-btn_wrapper">
-                             <div class="button-wrapper container">
-                                 <button class="btn btn-primary btn-checkout">PROCEED TO CHECKOUT</button>
-                             </div>
-                         </div>
                      </div>
                  </div>
                  @else
