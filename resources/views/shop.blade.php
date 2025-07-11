@@ -44,7 +44,7 @@
                                         </li>
                                     @endforeach
                                 </ul>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -191,7 +191,7 @@
                             aria-labelledby="accordion-heading-price" data-bs-parent="#price-filters">
                             <input class="price-range-slider" type="text" name="price_range" value=""
                                 data-slider-min="1" data-slider-max="500" data-slider-step="5"
-                                data-slider-value="[{{$min_price}},{{$max_price}}]" data-currency="$" />
+                                data-slider-value="[{{ $min_price }},{{ $max_price }}]" data-currency="$" />
                             <div class="price-range__info d-flex align-items-center mt-2">
                                 <div class="me-auto">
                                     <span class="text-secondary">Min Price: </span>
@@ -440,35 +440,40 @@
                                                 class="money price">${{ number_format($product->regular_price, 2) }}</span>
                                         @endif
                                     </div>
-                                    
+
                                     @if (Cart::instance('wishlist')->content()->where('id', $product->id)->count() > 0)
-                                    <button
-                                    class="pc__btn-wl position-absolute top-0 end-0 bg-transparent border-0 js-add-wishlist"
-                                    title="Add To Wishlist" type="submit">
-                                    <svg width="16" height="16" style="color: orange" viewBox="0 0 20 20" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <use href="#icon_heart" />
-                                    </svg>
-                                </button>
-                                </svg>
-                                @else
-                                    <form action="{{ route('wishlist.add') }}" method="POST">
-                                        @csrf
-                                        <input type="hidden" name="id" value="{{ $product->id }}">
-                                        <input type="hidden" name="quantity" value="1">
-                                        <input type="hidden" name="name" value="{{ $product->name }}">
-                                        <input type="hidden" name="price"
-                                            value="{{ $product->sale_price == '' ? $product->regular_price : $product->sale_price }}">
-                                        <button
-                                        class="pc__btn-wl position-absolute top-0 end-0 bg-transparent border-0 js-add-wishlist"
-                                        title="Add To Wishlist" type="submit">
-                                        <svg width="16" height="16" viewBox="0 0 20 20" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <use href="#icon_heart" />
-                                        </svg>
-                                    </button>
-                                    </form>
-                                  @endif 
+                                        <form method="POST"
+                                            action="{{ route('wishlist.remove', ['rowId' => Cart::instance('wishlist')->content()->where('id', $product->id)->first()->rowId]) }}">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button
+                                                class="pc__btn-wl position-absolute top-0 end-0 bg-transparent border-0 js-add-wishlist"
+                                                title="Remove from Wishlist" type="submit">
+                                                <svg width="16" height="16" style="color: orange"
+                                                    viewBox="0 0 20 20" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <use href="#icon_heart" />
+                                                </svg>
+                                            </button>
+                                        </form>
+                                    @else
+                                        <form action="{{ route('wishlist.add') }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="id" value="{{ $product->id }}">
+                                            <input type="hidden" name="quantity" value="1">
+                                            <input type="hidden" name="name" value="{{ $product->name }}">
+                                            <input type="hidden" name="price"
+                                                value="{{ $product->sale_price == '' ? $product->regular_price : $product->sale_price }}">
+                                            <button
+                                                class="pc__btn-wl position-absolute top-0 end-0 bg-transparent border-0 js-add-wishlist"
+                                                title="Add To Wishlist" type="submit">
+                                                <svg width="16" height="16" viewBox="0 0 20 20" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <use href="#icon_heart" />
+                                                </svg>
+                                            </button>
+                                        </form>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -529,7 +534,7 @@
                 $("#frmfilter").submit();
             });
 
-            $("[name='price_range']").on("change",function(){
+            $("[name='price_range']").on("change", function() {
                 var min = $(this).val().split(',')[0];
                 var max = $(this).val().split(',')[1];
 
@@ -537,11 +542,11 @@
                 $("#hdnMaxPrice").val(max);
                 console.log(min);
                 console.log(max);
-                
+
                 setTimeout(() => {
                     $("#frmfilter").submit();
                 }, 2000);
-                
+
 
             })
         });

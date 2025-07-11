@@ -34,7 +34,7 @@
                 </a>
             </div>
             <div class="shopping-cart">
-                @if ($items->count() > 0)
+                @if (Cart::instance('cart')->content()->count() > 0)
                     <div class="cart-table__wrapper">
                         <table class="cart-table">
                             <thead>
@@ -115,11 +115,6 @@
                             </tbody>
                         </table>
                         <div class="cart-table-footer">
-                            <form action="#" class="position-relative bg-body">
-                                <input class="form-control" type="text" name="coupon_code" placeholder="Coupon Code">
-                                <input class="btn-link fw-medium position-absolute top-0 end-0 h-100 px-4" type="submit"
-                                    value="APPLY COUPON">
-                            </form>
                             <form action="{{route('cart.clear')}}" method="post">
                                 @csrf
                                 @method('delete')

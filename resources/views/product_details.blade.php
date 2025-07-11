@@ -148,11 +148,16 @@
 
                     <div class="product-single__addtolinks">
                         @if (Cart::instance('wishlist')->content()->where('id', $product->id)->count() > 0)
-                            <a href="#" class="menu-link menu-link_us-s add-to-wishlist"><svg width="16"
-                                    height="16" viewBox="0 0 20 20" style="color: orange" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <use href="#icon_heart" />
-                                </svg><span>Remove from Wishlist</span></a>
+                            <form id="remove-wishlist" method="POST"
+                                action="{{ route('wishlist.remove', ['rowId' => Cart::instance('wishlist')->content()->where('id', $product->id)->first()->rowId]) }}">
+                                @csrf
+                                @method('DELETE')
+                                <a href="#" onclick="document.getElementById('remove-wishlist').submit()" class="menu-link menu-link_us-s add-to-wishlist"><svg width="16"
+                                        height="16"  viewBox="0 0 20 20" style=" color: orange; margin-right:10px" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <use href="#icon_heart" />
+                                    </svg><span>Remove from Wishlist</span></a>
+                            </form>
                         @else
                             <form action="{{ route('wishlist.add') }}" method="POST" id="wishlist-form">
                                 @csrf
@@ -166,7 +171,7 @@
                                         height="16" style="gap:0.625 rem" viewBox="0 0 20 20" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <use href="#icon_heart" />
-                                    </svg><span  style="margin-left: 10px" >Add to Wishlist</span></a>
+                                    </svg><span style="margin-left: 10px">Add to Wishlist</span></a>
                             </form>
                         @endif
                         <share-button class="share-button">

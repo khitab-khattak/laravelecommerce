@@ -27,6 +27,9 @@ Route::delete('cart/clear', [CartController::class, 'clear_cart'])->name('cart.c
 
 //wishlist
 Route::post('/wishlist/add',[WishlistController::class,'add_to_wishlist'])->name('wishlist.add');
+Route::get('wishlist/',[WishlistController::class,'index'])->name('wishlist.index');
+Route::delete('wishlist/delete/{rowId}',[WishlistController::class , 'remove_wishlist_item'])->name('wishlist.remove');
+Route::delete('wishlist/clear', [WishlistController::class, 'clear_wishlist'])->name('wishlist.clear');
 
 Auth::routes();
 
