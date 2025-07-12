@@ -137,8 +137,8 @@
                                         <div class="text">Slider</div>
                                     </a>
                                 </li>
-                                <li class="menu-item">
-                                    <a href="coupons.html" class="">
+                                <li class="menu-item {{ $currentRoute == 'coupons.list' ? 'active' : '' }}">
+                                    <a href="{{route('coupons.list')}}" class="">
                                         <div class="icon"><i class="icon-grid"></i></div>
                                         <div class="text">Coupns</div>
                                     </a>

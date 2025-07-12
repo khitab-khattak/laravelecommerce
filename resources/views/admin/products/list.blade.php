@@ -62,7 +62,8 @@
                                     <td>{{ $product->id }}</td>
                                     <td class="pname">
                                         <div class="image">
-                                            <img src="{{ asset('uploads/products/' . $product->image) }}" alt="img" class="image">
+                                            <img src="{{ asset('uploads/products/' . $product->image) }}" alt="img"
+                                                class="image">
                                         </div>
                                         <div class="name">
                                             <a href="#" class="body-title-2">{{ $product->name }}</a>
@@ -79,59 +80,57 @@
                                     <td>{{ $product->quantity }}</td>
                                     <td>
                                         <div class="list-icon-function">
-                                            <a href="{{ route('admin.edit-products',$product->id) }}">
+                                            <a href="{{ route('admin.edit-products', $product->id) }}">
                                                 <div class="item edit">
                                                     <i class="icon-edit-3"></i>
                                                 </div>
                                             </a>
-                                             <!-- Open Delete Modal -->
-                                     <button type="button" data-bs-toggle="modal"
-                                     data-bs-target="#confirmModal-{{ $product->id }}"
-                                     class="item text-danger delete border-0 bg-transparent p-0"
-                                     title="Delete">
-                                     <i class="icon-trash-2"></i>
-                                 </button>
-                                 <!-- Modal + Form -->
-                                 <form action="{{ route('admin.delete-products', $product->id) }}"
-                                     method="POST">
-                                     @csrf
-                                     @method('DELETE')
+                                            <!-- Open Delete Modal -->
+                                            <button type="button" data-bs-toggle="modal"
+                                                data-bs-target="#confirmModal-{{ $product->id }}"
+                                                class="item text-danger delete border-0 bg-transparent p-0" title="Delete">
+                                                <i class="icon-trash-2"></i>
+                                            </button>
+                                            <!-- Modal + Form -->
+                                            <form action="{{ route('admin.delete-products', $product->id) }}"
+                                                method="POST">
+                                                @csrf
+                                                @method('DELETE')
 
-                                     <div class="modal fade" id="confirmModal-{{ $product->id }}"
-                                         tabindex="-1" aria-labelledby="confirmModalLabel"
-                                         aria-hidden="true">
-                                         <div class="modal-dialog modal-dialog-centered">
-                                             <div class="modal-content">
+                                                <div class="modal fade" id="confirmModal-{{ $product->id }}"
+                                                    tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered">
+                                                        <div class="modal-content">
 
-                                                 <div class="modal-header">
-                                                     <h5 class="modal-title" id="confirmModalLabel">Confirm
-                                                         Deletion</h5>
-                                                     <button type="button" class="btn-close"
-                                                         data-bs-dismiss="modal" aria-label="Close"></button>
-                                                 </div>
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="confirmModalLabel">Confirm
+                                                                    Deletion</h5>
+                                                                <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
 
-                                                 <div class="modal-body text-center">
-                                                     <i
-                                                         class="fas fa-exclamation-triangle warning-icon text-warning fs-2"></i>
-                                                     <p class="mb-0">Are you sure you want to delete this
-                                                         Product?<br>This action cannot be undone.</p>
-                                                 </div>
+                                                            <div class="modal-body text-center">
+                                                                <i
+                                                                    class="fas fa-exclamation-triangle warning-icon text-warning fs-2"></i>
+                                                                <p class="mb-0">Are you sure you want to delete this
+                                                                    Product?<br>This action cannot be undone.</p>
+                                                            </div>
 
-                                                 <div class="modal-footer">
-                                                     <button type="button" class="btn btn-secondary"
-                                                         data-bs-dismiss="modal">
-                                                         <i class="fas fa-times me-2"></i>Cancel
-                                                     </button>
-                                                     <button type="submit" class="btn btn-danger">
-                                                         <i class="fas fa-trash-alt me-2"></i>Delete
-                                                     </button>
-                                                 </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal">
+                                                                    <i class="fas fa-times me-2"></i>Cancel
+                                                                </button>
+                                                                <button type="submit" class="btn btn-danger">
+                                                                    <i class="fas fa-trash-alt me-2"></i>Delete
+                                                                </button>
+                                                            </div>
 
-                                             </div>
-                                         </div>
-                                     </div>
-                                 </form>
-                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+
                                         </div>
                                     </td>
                                 </tr>
