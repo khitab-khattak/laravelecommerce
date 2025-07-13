@@ -17,6 +17,16 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
+             {{-- Alert Messages --}}
+             @if (session('coupon_capped'))
+             <div class="alert alert-warning mb-2">
+                 {{ session('coupon_capped') }}
+             </div>
+         @elseif (session()->has('coupon'))
+             <div class="alert alert-success mb-2">
+                 <strong>{{ session('coupon')['code'] }}</strong> coupon applied successfully!
+             </div>
+         @endif
 
             {{-- Checkout steps --}}
             <div class="checkout-steps">
@@ -116,51 +126,36 @@
                         {{-- Cart Footer --}}
                         <div class="cart-table-footer">
 
-                            {{-- Apply Coupon --}}
-                            <form action="{{ route('cart.coupon.apply') }}" method="POST" class="mb-3">
+                            {{-- Apply/Remove Coupon --}}
+                            <form action="{{ session()->has('coupon') ? route('cart.coupon.remove') : route('cart.coupon.apply') }}" method="POST" class="mb-3">
                                 @csrf
-
-                                {{-- Alert Messages --}}
-                                @if (session('coupon_capped'))
-                                    <div class="alert alert-warning mb-2">
-                                        {{ session('coupon_capped') }}
-                                    </div>
-                                @elseif (session()->has('coupon'))
-                                    <div class="alert alert-success mb-2">
-                                        <strong>{{ session('coupon')['code'] }}</strong> coupon applied successfully!
-                                    </div>
+                                @if (session()->has('coupon'))
+                                    @method('DELETE')
                                 @endif
-
+                        
+                               
+                        
                                 {{-- Coupon Input Group --}}
                                 <div class="input-group">
                                     <input type="text" name="coupon_code" class="form-control" placeholder="Coupon Code"
                                         value="{{ session('coupon')['code'] ?? '' }}"
                                         {{ session()->has('coupon') ? 'readonly' : '' }}>
-
-                                    <button type="submit" class="btn btn-primary"
-                                        {{ session()->has('coupon') ? 'disabled' : '' }}>
-                                        APPLY COUPON
+                        
+                                    <button type="submit"
+                                        class="btn btn-primary {{ session()->has('coupon') }}">
+                                        {{ session()->has('coupon') ? 'REMOVE COUPON' : 'APPLY COUPON' }}
                                     </button>
                                 </div>
                             </form>
-
-                            {{-- Remove & Clear Buttons --}}
-                            <div class="d-flex flex-wrap gap-2">
-                                @if (session()->has('coupon'))
-                                    <form action="{{ route('cart.coupon.remove') }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-outline-danger">Remove Coupon</button>
-                                    </form>
-                                @endif
-
-                                <form action="{{ route('cart.clear') }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-light">Clear Cart</button>
-                                </form>
-                            </div>
+                        
+                            {{-- Clear Cart Button --}}
+                            <form action="{{ route('cart.clear') }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-outline-danger">Clear Cart</button>
+                            </form>
                         </div>
+                        
 
                     </div>
 
