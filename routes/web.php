@@ -38,6 +38,8 @@ Route::delete('wishlist/clear', [WishlistController::class, 'clear_wishlist'])->
 Route::post('wishlist/move-to-cart/{rowId}', [WishlistController::class, 'move_to_cart'])->name('wishlist.movetocart');
 //checkout
 Route::get('/checkout',[CartController::class,'checkout'])->name('cart.checkout');
+Route::post('/place-an-order',[CartController::class,'place_an_order'])->name('cart.placeorder');
+Route::get('/order-confirmation',[CartController::class,'order_confirmation'])->name('cart.orderConfirmation');
 
 
 Auth::routes();
