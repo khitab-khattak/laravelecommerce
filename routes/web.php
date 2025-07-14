@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CouponController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
@@ -87,4 +88,7 @@ Route::middleware(['auth', AuthAdmin::class])->group(function () {
     Route::get('admin/coupons/edit/{id}', [CouponController::class, 'edit'])->name('coupons.edit');
     Route::put('admin/coupons/edit/{id}', [CouponController::class, 'update'])->name('coupons.update');
     Route::delete('admin/coupons/delete/{id}', [CouponController::class, 'destroy'])->name('coupons.delete');
+
+    //order
+    Route::get('/admin/orders/list',[OrderController::class,'list'])->name('admin.orders');
 });

@@ -20,6 +20,12 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
     @stack('styles')
 </head>
+<style>
+    .sub-menu-item.active a {
+    color: #fd590d;
+    font-weight: bold;
+}
+</style>
 
 <body class="body">
     <div id="wrapper">
@@ -113,14 +119,15 @@
                             
                                 
 
-                                <li class="menu-item has-children">
+                            <li class="menu-item has-children {{ in_array($currentRoute, ['admin.orders']) ? 'active' : '' }}">
+
                                     <a href="javascript:void(0);" class="menu-item-button">
                                         <div class="icon"><i class="icon-file-plus"></i></div>
                                         <div class="text">Order</div>
                                     </a>
                                     <ul class="sub-menu">
-                                        <li class="sub-menu-item">
-                                            <a href="orders.html" class="">
+                                        <li class="sub-menu-item {{ request()->routeIs('admin.orders') ? 'active' : '' }}">
+                                            <a href="{{route('admin.orders')}}" class="">
                                                 <div class="text">Orders</div>
                                             </a>
                                         </li>
