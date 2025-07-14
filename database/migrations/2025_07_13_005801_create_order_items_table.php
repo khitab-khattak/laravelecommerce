@@ -20,7 +20,7 @@ return new class extends Migration
             $table->decimal('price', 10, 2);
             $table->integer('quantity');
             $table->longText('options')->nullable(); // to store size, color, etc.
-            $table->boolean('rstatus')->default('False'); // e.g., return status
+            $table->boolean('rstatus')->default(false); // e.g., return status
         
             $table->timestamps();
         

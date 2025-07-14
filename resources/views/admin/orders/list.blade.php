@@ -1,12 +1,17 @@
 @extends('layouts.admin')
 @section('content')
+<style>
+   .table-transaction>tbody>tr:nth-of-type(odd) {
+       --bs-table-accent-bg: #fff !important;
+   }
+</style>
 <div class="main-content-inner">
    <div class="main-content-wrap">
        <div class="flex items-center flex-wrap justify-between gap20 mb-27">
            <h3>Orders</h3>
            <ul class="breadcrumbs flex items-center flex-wrap justify-start gap10">
                <li>
-                   <a href="index.html">
+                   <a href="{{route('admin.index')}}">
                        <div class="text-tiny">Dashboard</div>
                    </a>
                </li>
@@ -67,7 +72,7 @@
                                <td class="text-center">{{$order->OrderItems->count()}}</td>
                                <td class="text-center">{{$order->delivered_date}}</td>
                                <td class="text-center">
-                                   <a href="order-details.html">
+                                   <a href="{{route('admin.order-details' , $order->id)}}">
                                        <div class="list-icon-function view-icon">
                                            <div class="item eye">
                                                <i class="icon-eye"></i>

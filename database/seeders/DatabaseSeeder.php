@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
         $categoryIds = $categories->pluck('id')->toArray();
         $brandIds = $brands->pluck('id')->toArray();
     
-        Product::factory(50)->state(function () use ($categoryIds, $brandIds) {
+        Product::factory(15)->state(function () use ($categoryIds, $brandIds) {
             return [
                 'category_id' => Arr::random($categoryIds),
                 'brand_id'    => Arr::random($brandIds),
