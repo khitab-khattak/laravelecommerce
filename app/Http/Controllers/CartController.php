@@ -7,6 +7,8 @@ use Surfsidemedia\Shoppingcart\Facades\Cart;
 use App\Models\Coupon;
 use Carbon\Carbon;
 use Illuminate\Contracts\Session\Session;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Address;
 
 class CartController extends Controller
 {
@@ -139,5 +141,13 @@ public function clear(Request $request)
     return back()->with('success', 'Cart cleared successfully.');
 }
 
+public function checkout(){
+    if(!Auth::check()){
+        return redirect()->route('login');
+    }
+    $address = Address::where('user_id',Auth::user()->id)->where('isdefauld',1)->first();
+    return view('checkout',compact('address'));
+
+}
     
 }
