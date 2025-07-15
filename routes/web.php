@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ShopController;
+use App\Http\Controllers\User\OrderController as UserOrderController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Middleware\AuthAdmin;
@@ -47,9 +48,15 @@ Auth::routes();
 
 // USER dashboard
 Route::middleware(['auth'])->group(function () {
-    Route::get('/user/dashboard', [UserController::class, 'index'])->name('user.index');
-    Route::post('/user/logout', [UserController::class, 'logout'])->name('user.logout');
+    Route::get('/account/dashboard', [UserController::class, 'index'])->name('user.index');
+    Route::post('/account/logout', [UserController::class, 'logout'])->name('user.logout');
+
+    //Orders
+    Route::get('account/orders/list',[UserOrderController::class,'list'])->name('users.orders');
+    Route::get('account/orders/details/{order_id}',[UserOrderController::class,'details'])->name('users.orders.details');
 });
+
+
 
 // ADMIN dashboard
 Route::middleware(['auth', AuthAdmin::class])->group(function () {
