@@ -151,6 +151,9 @@
                         </div>
 
                         <div class="table-responsive">
+                            @if (Session::has('status'))
+                       <p class="alert alert-success">{{Session::get('status')}}</p> 
+                    @endif
                             <table class="table table-striped table-transaction  table-bordered">
                                 <tbody>
                                     <tr>
@@ -301,17 +304,58 @@
                                         @endif
                                     </td>
                                 </tr>
-                                <tr>
-                                    <th>Order Date</th>
-                                    <td>{{$order->created_at}}</td>
-                                    <th>Delivered Date</th>
-                                    <td>{{$order->delivered_date}}</td>
-                                    <th>Canceled Date</th>
-                                    <td>{{$order->canceled}}</td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
+
+      @if ($order->status == 'ordered')
+      <div class="wg-box mt-5 text-end">
+        <button type="button" class="btn btn-outline-danger btn-sm px-4 py-2 fw-bold rounded-pill shadow-sm"
+            data-bs-toggle="modal" data-bs-target="#confirmModal-{{ $order->id }}">
+            <i class="fas fa-times-circle me-2"></i>Cancel Order
+        </button>
+    </div> 
+      @endif              <!-- Cancel Order Button -->
+
+
+<!-- Modal + Form -->
+<form action="{{ route('account.order.cancel') }}" method="POST">
+    @csrf
+    @method('PUT')
+    <input type="hidden" name="order_id" value="{{ $order->id }}">
+
+    <div class="modal fade" id="confirmModal-{{ $order->id }}" tabindex="-1" aria-labelledby="confirmModalLabel-{{ $order->id }}" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg">
+
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title fw-semibold" id="confirmModalLabel-{{ $order->id }}">
+                        <i class="fas fa-exclamation-circle me-2"></i>Confirm Cancelation
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body text-center py-4">
+                    <div class="mb-3">
+                        <i class="fas fa-exclamation-triangle text-warning fs-1"></i>
+                    </div>
+                    <p class="fs-6 text-muted">Are you sure you want to <strong>cancel this order</strong>?</p>
+                </div>
+
+                <div class="modal-footer d-flex justify-content-center gap-2 pb-4">
+                    <button type="button" class="btn btn-outline-secondary px-4 rounded-pill" data-bs-dismiss="modal">
+                        <i class="fas fa-times me-1"></i>No, Keep Order
+                    </button>
+                    <button type="submit" class="btn btn-danger px-4 rounded-pill">
+                        <i class="fas fa-trash-alt me-1"></i>Yes, Cancel It
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>
+
                 </div>
 
             </div>

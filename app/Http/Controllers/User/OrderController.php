@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\OrderItem;
 use App\Models\Transaction;
+use Carbon\Carbon;
 
 class OrderController extends Controller
 {
@@ -29,5 +30,12 @@ class OrderController extends Controller
             return redirect()->route('login');
         }
        
+    }
+    public function order_cancel(Request $request){
+        $order = Order::find($request->order_id);
+        $order->status = "canceled";
+        $order->canceled_date = Carbon::now();
+        $order->save();
+        return back()->with("status","Order has been cancelled successfully");
     }
 }

@@ -92,11 +92,13 @@
                                             <td class="text-center">${{ $order->tax }}</td>
                                             <td class="text-center">${{ $order->total }}</td>
                                             <td class="text-center">
-                                                <span
-                                                    class="badge 
-                                                        {{ $order->status == 'delivered' ? 'bg-success' : ($order->status == 'pending' ? 'bg-warning' : 'bg-danger') }}">
-                                                    {{ ucfirst($order->status) }}
-                                                </span>
+                                                @if ($order->status == 'delivered')
+                                                    <span class="badge bg-success">Delivered</span>
+                                                @elseif($order->status == 'canceled')
+                                                    <span class="badge bg-danger">Canceled</span>
+                                                @else
+                                                    <span class="badge bg-warning">Ordered</span>
+                                                @endif
                                             </td>
                                             <td class="text-center">{{ $order->created_at }}</td>
                                             <td class="text-center">{{ $order->orderItems->count() }}</td>

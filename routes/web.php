@@ -54,6 +54,7 @@ Route::middleware(['auth'])->group(function () {
     //Orders
     Route::get('account/orders/list',[UserOrderController::class,'list'])->name('users.orders');
     Route::get('account/orders/details/{order_id}',[UserOrderController::class,'details'])->name('users.orders.details');
+    Route::put('/account/order/cancel',[UserOrderController::class,'order_cancel'])->name('account.order.cancel');
 });
 
 
