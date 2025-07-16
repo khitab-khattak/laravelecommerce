@@ -151,8 +151,8 @@
                         </div>
 
                         <div class="table-responsive">
-                            <table class="table  table-bordered">
-                                <thead>
+                            <table class="table table-striped table-transaction  table-bordered">
+                                <tbody>
                                     <tr>
                                         <th>Order No</th>
                                         <td>{{ $order->id }}</td>
@@ -181,7 +181,7 @@
                                             @endif
                                         </td>
                                     </tr>
-                                </thead>
+                                </tbody>
                             </table>
                         </div>
 

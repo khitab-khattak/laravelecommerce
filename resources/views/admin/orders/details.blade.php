@@ -28,6 +28,9 @@
                 </div>
 
                 <div class="table-responsive">
+                    @if (Session::has('status'))
+                       <p class="alert alert-success">{{Session::get('status')}}</p> 
+                    @endif
                     <table class="table table-striped table-bordered">
                         <thead>
                             <tr>
@@ -173,17 +176,34 @@
                                 @endif
                             </td>
                         </tr>
-                        <tr>
-                            <th>Order Date</th>
-                            <td>{{$order->created_at}}</td>
-                            <th>Delivered Date</th>
-                            <td>{{$order->delivered_date}}</td>
-                            <th>Canceled Date</th>
-                            <td>{{$order->canceled}}</td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
+
+            <div class="wg-box mt-5">
+                <h5>Update Order Status</h5>
+              <form action="{{route('admin.order.status.update')}}" method="post">
+                @csrf
+                @method('PUT')
+                <input type="hidden" name="order_id" value="{{$order->id}}">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="select">
+                            <select name="order_status" id="order_status">
+                                <option value="ordered" {{$order->status == 'ordered' ? "selected":""}}>Ordered</option>
+                                <option value="delivered"{{$order->status == 'delivered' ? "selected":""}}>Delivered</option>
+                                <option value="canceled"{{$order->status == 'canceled' ? "selected":""}}>Canceled</option>
+                            </select>
+                        </div>
+                      
+                    </div>
+                    <div class="col-md-3">
+                        <button type="submit" class="btn btn-primary tf-button w208">Update Status</button>
+                    </div>
+                </div>
+              </form>
+            </div>
+
         </div>
     </div>
 @endsection
