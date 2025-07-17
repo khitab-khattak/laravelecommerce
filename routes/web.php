@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ShopController;
@@ -101,4 +102,14 @@ Route::middleware(['auth', AuthAdmin::class])->group(function () {
     Route::get('/admin/orders/list',[OrderController::class,'list'])->name('admin.orders');
     Route::get('/admin/orders/details/{id}',[OrderController::class,'details'])->name('admin.order-details');
     Route::put('admin/orders/update_status',[OrderController::class,'update_order_status'])->name('admin.order.status.update');
+
+    //Slider
+    Route::get('admin/slider/list',[SliderController::class,'list'])->name('admin.slider.list');
+    Route::get('admin/slider/add',[SliderController::class,'add'])->name('admin.slider.add');
+    Route::post('admin/slider/store',[SliderController::class,'store'])->name('admin.slider.store');
+    Route::get('/slider/{id}/edit', [SliderController::class, 'edit'])->name('slider.edit');
+
+    // Update slide
+    Route::put('/slider/{id}/update', [SliderController::class, 'update'])->name('slider.update');
+    Route::delete('/slider/{id}/delete', [SliderController::class, 'delete'])->name('admin.delete-slide');
 });

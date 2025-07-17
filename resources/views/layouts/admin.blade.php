@@ -126,7 +126,7 @@
                                         <div class="text">Order</div>
                                     </a>
                                     <ul class="sub-menu">
-                                        <li class="sub-menu-item {{ request()->routeIs('admin.orders') ? 'active' : '' }}">
+                                        <li class="sub-menu-item">
                                             <a href="{{route('admin.orders')}}" class="">
                                                 <div class="text">Orders</div>
                                             </a>
@@ -138,8 +138,8 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="menu-item">
-                                    <a href="slider.html" class="">
+                                <li class="menu-item {{$currentRoute == 'admin.slider.list' ? 'active':''}}">
+                                    <a href="{{route('admin.slider.list')}}" class="">
                                         <div class="icon"><i class="icon-image"></i></div>
                                         <div class="text">Slider</div>
                                     </a>

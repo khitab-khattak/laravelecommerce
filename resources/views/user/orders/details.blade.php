@@ -71,7 +71,7 @@
             padding-bottom: 7px;
         }
 
-        
+
 
         .table-bordered> :not(caption)>tr>th,
         .table-bordered> :not(caption)>tr>td {
@@ -79,49 +79,49 @@
             border-color: #6a6e51;
 
             /* Container holding image + name */
-.product-cell {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    width: 100%;
-    overflow: hidden;
-}
+            .product-cell {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                width: 100%;
+                overflow: hidden;
+            }
 
-/* Image wrapper with fixed size */
-.product-image {
-    width: 50px;
-    height: 50px;
-    flex-shrink: 0;
-    border-radius: 6px;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+            /* Image wrapper with fixed size */
+            .product-image {
+                width: 50px;
+                height: 50px;
+                flex-shrink: 0;
+                border-radius: 6px;
+                overflow: hidden;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
 
-/* Image itself fills the wrapper */
-.product-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
+            /* Image itself fills the wrapper */
+            .product-image img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
 
-/* Name section that auto-truncates if too long */
-.product-name {
-    flex: 1;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
+            /* Name section that auto-truncates if too long */
+            .product-name {
+                flex: 1;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
 
-/* Optional: style anchor text */
-.product-name a {
-    font-weight: 500;
-    color: #000;
-    text-decoration: none;
-    display: inline-block;
-    max-width: 100%;
-}
+            /* Optional: style anchor text */
+            .product-name a {
+                font-weight: 500;
+                color: #000;
+                text-decoration: none;
+                display: inline-block;
+                max-width: 100%;
+            }
 
 
         }
@@ -152,8 +152,8 @@
 
                         <div class="table-responsive">
                             @if (Session::has('status'))
-                       <p class="alert alert-success">{{Session::get('status')}}</p> 
-                    @endif
+                                <p class="alert alert-success">{{ Session::get('status') }}</p>
+                            @endif
                             <table class="table table-striped table-transaction  table-bordered">
                                 <tbody>
                                     <tr>
@@ -216,37 +216,41 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($order_items as $item)
-                                    <tr>
-                                        <td class="" style="min-width: 250px;">
-                                            <div class="product-cell" style="width: 100%;">
-                                                <div class="product-image">
-                                                    <img src="{{ asset('uploads/products/' . $item->product->image) }}" alt="">
+                                        <tr>
+                                            <td class="" style="min-width: 250px;">
+                                                <div class="product-cell" style="width: 100%;">
+                                                    <div class="product-image">
+                                                        <img src="{{ asset('uploads/products/' . $item->product->image) }}"
+                                                            alt="">
+                                                    </div>
+                                                    <div class="product-name">
+                                                        <a href="{{ route('shop.product-details', $item->product->slug) }}"
+                                                            target="_blank">
+                                                            {{ $item->product->name }}
+                                                        </a>
+                                                    </div>
                                                 </div>
-                                                <div class="product-name">
-                                                    <a href="{{ route('shop.product-details', $item->product->slug) }}" target="_blank">
-                                                        {{ $item->product->name }}
-                                                    </a>
+                                            </td>
+
+
+                                            <td class="text-center" style="width: 100px;">${{ $item->price }}</td>
+                                            <td class="text-center" style="width: 90px;">{{ $item->quantity }}</td>
+                                            <td class="text-center" style="width: 120px;">{{ $item->product->SKU }}</td>
+                                            <td class="text-center" style="width: 120px;">
+                                                {{ $item->product->category->name }}</td>
+                                            <td class="text-center" style="width: 120px;">{{ $item->product->brand->name }}
+                                            </td>
+                                            <td class="text-center" style="width: 100px;">{{ $item->options }}</td>
+                                            <td class="text-center" style="width: 120px;">
+                                                {{ $item->rstatus == 0 ? 'No' : 'Yes' }}</td>
+                                            <td class="text-center" style="width: 80px;">
+                                                <div class="list-icon-function view-icon">
+                                                    <div class="item eye">
+                                                        <i class="icon-eye"></i>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        
-                                    
-                                        <td class="text-center" style="width: 100px;">${{ $item->price }}</td>
-                                        <td class="text-center" style="width: 90px;">{{ $item->quantity }}</td>
-                                        <td class="text-center" style="width: 120px;">{{ $item->product->SKU }}</td>
-                                        <td class="text-center" style="width: 120px;">{{ $item->product->category->name }}</td>
-                                        <td class="text-center" style="width: 120px;">{{ $item->product->brand->name }}</td>
-                                        <td class="text-center" style="width: 100px;">{{ $item->options }}</td>
-                                        <td class="text-center" style="width: 120px;">{{ $item->rstatus == 0 ? "No" : "Yes" }}</td>
-                                        <td class="text-center" style="width: 80px;">
-                                            <div class="list-icon-function view-icon">
-                                                <div class="item eye">
-                                                    <i class="icon-eye"></i>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    
+                                            </td>
+                                        </tr>
                                     @endforeach
                                 </tbody>
                             </table>
@@ -307,54 +311,58 @@
                             </tbody>
                         </table>
                     </div>
+                    @if ($order->status == 'ordered')
+                        <div class="wg-box mt-5 text-end">
+                            <button type="button"
+                                class="btn btn-outline-danger btn-sm px-4 py-2 fw-bold rounded-pill shadow-sm"
+                                data-bs-toggle="modal" data-bs-target="#confirmModal-{{ $order->id }}">
+                                <i class="fas fa-times-circle me-2"></i>Cancel Order
+                            </button>
+                        </div>
+                    @endif <!-- Cancel Order Button -->
 
-      @if ($order->status == 'ordered')
-      <div class="wg-box mt-5 text-end">
-        <button type="button" class="btn btn-outline-danger btn-sm px-4 py-2 fw-bold rounded-pill shadow-sm"
-            data-bs-toggle="modal" data-bs-target="#confirmModal-{{ $order->id }}">
-            <i class="fas fa-times-circle me-2"></i>Cancel Order
-        </button>
-    </div> 
-      @endif              <!-- Cancel Order Button -->
 
+                    <!-- Modal + Form -->
+                    <form action="{{ route('account.order.cancel') }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <input type="hidden" name="order_id" value="{{ $order->id }}">
 
-<!-- Modal + Form -->
-<form action="{{ route('account.order.cancel') }}" method="POST">
-    @csrf
-    @method('PUT')
-    <input type="hidden" name="order_id" value="{{ $order->id }}">
+                        <div class="modal fade" id="confirmModal-{{ $order->id }}" tabindex="-1"
+                            aria-labelledby="confirmModalLabel-{{ $order->id }}" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content border-0 shadow-lg">
 
-    <div class="modal fade" id="confirmModal-{{ $order->id }}" tabindex="-1" aria-labelledby="confirmModalLabel-{{ $order->id }}" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content border-0 shadow-lg">
+                                    <div class="modal-header bg-danger text-white">
+                                        <h5 class="modal-title fw-semibold" id="confirmModalLabel-{{ $order->id }}">
+                                            <i class="fas fa-exclamation-circle me-2"></i>Confirm Cancelation
+                                        </h5>
+                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
 
-                <div class="modal-header bg-danger text-white">
-                    <h5 class="modal-title fw-semibold" id="confirmModalLabel-{{ $order->id }}">
-                        <i class="fas fa-exclamation-circle me-2"></i>Confirm Cancelation
-                    </h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
+                                    <div class="modal-body text-center py-4">
+                                        <div class="mb-3">
+                                            <i class="fas fa-exclamation-triangle text-warning fs-1"></i>
+                                        </div>
+                                        <p class="fs-6 text-muted">Are you sure you want to <strong>cancel this
+                                                order</strong>?</p>
+                                    </div>
 
-                <div class="modal-body text-center py-4">
-                    <div class="mb-3">
-                        <i class="fas fa-exclamation-triangle text-warning fs-1"></i>
-                    </div>
-                    <p class="fs-6 text-muted">Are you sure you want to <strong>cancel this order</strong>?</p>
-                </div>
+                                    <div class="modal-footer d-flex justify-content-center gap-2 pb-4">
+                                        <button type="button" class="btn btn-outline-secondary px-4 rounded-pill"
+                                            data-bs-dismiss="modal">
+                                            <i class="fas fa-times me-1"></i>No, Keep Order
+                                        </button>
+                                        <button type="submit" class="btn btn-danger px-4 rounded-pill">
+                                            <i class="fas fa-trash-alt me-1"></i>Yes, Cancel It
+                                        </button>
+                                    </div>
 
-                <div class="modal-footer d-flex justify-content-center gap-2 pb-4">
-                    <button type="button" class="btn btn-outline-secondary px-4 rounded-pill" data-bs-dismiss="modal">
-                        <i class="fas fa-times me-1"></i>No, Keep Order
-                    </button>
-                    <button type="submit" class="btn btn-danger px-4 rounded-pill">
-                        <i class="fas fa-trash-alt me-1"></i>Yes, Cancel It
-                    </button>
-                </div>
-
-            </div>
-        </div>
-    </div>
-</form>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
 
                 </div>
 
