@@ -25,7 +25,7 @@ class SliderController extends Controller
             'title'     => 'required',
             'subtitle'  => 'required',
             'link'      => 'required|url',
-            'image'     => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'image'     => 'required|image|mimes:jpg,jpeg,png,webp|max:10240',
             'status'    => 'required|in:0,1',
         ]);
     
@@ -64,7 +64,7 @@ public function update(Request $request, $id)
         'title' => 'required',
         'subtitle' => 'required',
         'link' => 'required|url',
-        'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+        'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:10240',
         'status' => 'required|in:0,1',
     ]);
 

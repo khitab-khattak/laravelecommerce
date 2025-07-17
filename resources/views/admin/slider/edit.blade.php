@@ -115,11 +115,11 @@
                     <div class="select flex-grow">
                         <select name="status" required>
                             <option value="">Select</option>
-                            <option value="1" {{ old('status') == '1' ? 'selected' : '' }}>Active</option>
-                            <option value="0" {{ old('status') == '0' ? 'selected' : '' }}>Inactive</option>
+                            <option value="1" {{ old('status', $slide->status ?? '') == '1' ? 'selected' : '' }}>Active</option>
+                            <option value="0" {{ old('status', $slide->status ?? '') == '0' ? 'selected' : '' }}>Inactive</option>
                         </select>
                     </div>
-                </fieldset>
+                </fieldset>                
                 
                 <div class="bot">
                     <div></div>
