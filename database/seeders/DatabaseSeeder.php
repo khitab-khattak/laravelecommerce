@@ -17,6 +17,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->call([
+            MonthSeeder::class,
+        ]);
         $categories = Category::factory(10)->create();
         $brands = Brand::factory(10)->create();
     
