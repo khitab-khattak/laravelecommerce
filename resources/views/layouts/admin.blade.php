@@ -147,9 +147,16 @@
                                 <li class="menu-item {{ $currentRoute == 'coupons.list' ? 'active' : '' }}">
                                     <a href="{{route('coupons.list')}}" class="">
                                         <div class="icon"><i class="icon-grid"></i></div>
-                                        <div class="text">Coupns</div>
+                                        <div class="text">Coupons</div>
                                     </a>
                                 </li>
+                                <li class="menu-item {{ request()->routeIs('admin.contact-show') ? 'active' : '' }}">
+                                    <a href="{{ route('admin.contact-show') }}">
+                                        <div class="icon"><i class="icon-mail"></i></div>
+                                        <div class="text">Messages</div>
+                                    </a>
+                                </li>
+                                
 
                                 <li class="menu-item">
                                     <a href="users.html" class="">

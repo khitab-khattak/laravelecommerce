@@ -18,6 +18,9 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
 Route::get('/',[HomeController::class,'index'])->name('home.index');
+Route::get('/contact-us',[HomeController::class,'contact'])->name('home.contact');
+Route::post('/contact/store',[HomeController::class,'contact_store'])->name('home.contactStore');
+
 
 
 
@@ -113,4 +116,8 @@ Route::middleware(['auth', AuthAdmin::class])->group(function () {
     // Update slide
     Route::put('/slider/{id}/update', [SliderController::class, 'update'])->name('slider.update');
     Route::delete('/slider/{id}/delete', [SliderController::class, 'delete'])->name('admin.delete-slide');
+
+//contacts
+    Route::get('/admin/contact',[HomeController::class, 'contacts'])->name('admin.contact-show');
+    Route::delete('/delete/contact/{id}',[HomeController::class, 'destroy'])->name('admin.contact-delete');
 });

@@ -29,8 +29,8 @@
                     <div class="wg-filter flex-grow">
                         <form class="form-search">
                             <fieldset class="name">
-                                <input type="text" placeholder="Search here..." class="" name="name"
-                                    tabindex="2" value="" aria-required="true" required="">
+                                <input type="text" placeholder="Search here..." class="" name="name" tabindex="2" value=""
+                                    aria-required="true" required="">
                             </fieldset>
                             <div class="button-submit">
                                 <button class="" type="submit"><i class="icon-search"></i></button>
@@ -77,19 +77,16 @@
                                                 <!-- Open Delete Modal -->
                                                 <button type="button" data-bs-toggle="modal"
                                                     data-bs-target="#confirmModal-{{ $brand->id }}"
-                                                    class="item text-danger delete border-0 bg-transparent p-0"
-                                                    title="Delete">
+                                                    class="item text-danger delete border-0 bg-transparent p-0" title="Delete">
                                                     <i class="icon-trash-2"></i>
                                                 </button>
                                                 <!-- Modal + Form -->
-                                                <form action="{{ route('admin.delete-brands', $brand->id) }}"
-                                                    method="POST">
+                                                <form action="{{ route('admin.delete-brands', $brand->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
 
-                                                    <div class="modal fade" id="confirmModal-{{ $brand->id }}"
-                                                        tabindex="-1" aria-labelledby="confirmModalLabel"
-                                                        aria-hidden="true">
+                                                    <div class="modal fade" id="confirmModal-{{ $brand->id }}" tabindex="-1"
+                                                        aria-labelledby="confirmModalLabel" aria-hidden="true">
                                                         <div class="modal-dialog modal-dialog-centered">
                                                             <div class="modal-content">
 
