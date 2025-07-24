@@ -121,4 +121,7 @@ Route::middleware(['auth', AuthAdmin::class])->group(function () {
 //contacts
     Route::get('/admin/contact',[HomeController::class, 'contacts'])->name('admin.contact-show');
     Route::delete('/delete/contact/{id}',[HomeController::class, 'destroy'])->name('admin.contact-delete');
+
+    //search
+    Route::get('/admin/search',[AdminController::class,'search_product'])->name('admin.search');
 });

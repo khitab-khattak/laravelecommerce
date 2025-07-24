@@ -31,13 +31,13 @@
         overflow-y: auto;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
     }
-    
+
     #box-content-search {
         list-style: none;
         margin: 0;
         padding: 0;
     }
-    
+
     #box-content-search li {
         display: flex;
         align-items: center;
@@ -45,11 +45,11 @@
         border-bottom: 1px solid #f1f1f1;
         transition: background-color 0.2s ease;
     }
-    
+
     #box-content-search li:hover {
         background-color: #f9f9f9;
     }
-    
+
     #box-content-search img {
         width: 50px;
         height: 50px;
@@ -58,17 +58,17 @@
         border-radius: 6px;
         border: 1px solid #e0e0e0;
     }
-    
+
     #box-content-search .product-info {
         flex-grow: 1;
     }
-    
+
     #box-content-search .product-name {
         font-weight: 500;
         margin-bottom: 4px;
         color: #333;
     }
-    
+
     #box-content-search .product-link {
         color: #333;
         text-decoration: none;
@@ -76,13 +76,13 @@
         align-items: center;
         width: 100%;
     }
-    
+
     #box-content-search .product-link:hover .product-name {
         text-decoration: underline;
     }
-    </style>
-    
-    
+</style>
+
+
 
 
 <body class="gradient-bg">
@@ -578,7 +578,7 @@
         $(function () {
             $("#search-input").on("keyup", function () {
                 var searchQuery = $(this).val().trim();
-        
+
                 if (searchQuery.length > 2) {
                     $.ajax({
                         type: "GET",
@@ -587,16 +587,16 @@
                         dataType: 'json',
                         success: function (data) {
                             $("#box-content-search").html('');
-        
+
                             if (data.length === 0) {
                                 $("#box-content-search").html('<li class="px-3 py-2 text-muted">No results found</li>');
                                 return;
                             }
-        
+
                             $.each(data, function (index, item) {
                                 var url = "{{ route('shop.product-details', ['product_slug' => 'product_slug_pls']) }}";
                                 var link = url.replace('product_slug_pls', item.slug);
-        
+
                                 $("#box-content-search").append(`
                                     <li>
                                         <a href="${link}" class="product-link">
@@ -615,10 +615,10 @@
                 }
             });
         });
-        </script>
-        
-        
-    
+    </script>
+
+
+
     <script src="{{ asset('assets/js/theme.js') }}"></script>
     @stack('scripts')
 </body>

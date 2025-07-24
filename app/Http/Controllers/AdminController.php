@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -78,6 +79,18 @@ class AdminController extends Controller
 
         return redirect('/login')->with('success', 'You have been logged out.');
     }
+
+    public function search_product(Request $request)
+    {
+        $query = $request->input('query');
+    
+        $products = Product::where('name', 'like', '%' . $query . '%')
+            ->take(10)
+            ->get(['id', 'name', 'image']);
+    
+        return response()->json($products);
+    }
+    
 
    
 
