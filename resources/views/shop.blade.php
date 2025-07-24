@@ -1,5 +1,21 @@
 @extends('layouts.app')
 @section('content')
+    <style>
+        .brand-list li,
+        .category-list li {
+            line-height: 40px;
+        }
+
+        .brand-list li .chk-brand,
+        .category-list li .chk-category {
+            width: 1rem;
+            height: 1rem;
+            color: #e4e4e4;
+            border: 0.125rem solid currentColor;
+            border-radius: 0;
+            margin-right: 0.75rem;
+        }
+    </style>
     <main class="pt-90">
         <section class="shop-main container d-flex pt-4 pt-xl-5">
             <div class="shop-sidebar side-sticky bg-body" id="shopFilter">
@@ -28,14 +44,13 @@
                         </h5>
                         <div id="accordion-filter-1" class="accordion-collapse collapse show border-0"
                             aria-labelledby="accordion-heading-1" data-bs-parent="#categories-list">
-                            <div class="accordion-body px-0 pb-0 pt-3">
+                            <div class="accordion-body px-0 pb-0 pt-3 category-list">
                                 <ul class="list list-inline mb-0">
                                     @foreach ($categories as $category)
                                         <li class="list-item">
                                             <label class="menu-link py-1 d-flex justify-content-between align-items-center">
                                                 <input type="checkbox" name="categories" value="{{ $category->id }}"
-                                                    class="chk-category"
-                                                    {{ in_array($category->id, explode(',', $f_categories)) ? 'checked' : '' }}>
+                                                    class="chk-category" {{ in_array($category->id, explode(',', $f_categories)) ? 'checked' : '' }}>
                                                 <span>{{ $category->name }}</span>
                                                 <span class="text-right float-end">
                                                     {{ $category->products->count() }}
@@ -79,8 +94,7 @@
                                     <a href="#" class="swatch-color js-filter" style="color: #d29b48"></a>
                                     <a href="#" class="swatch-color js-filter" style="color: #e6ae95"></a>
                                     <a href="#" class="swatch-color js-filter" style="color: #d76b67"></a>
-                                    <a href="#" class="swatch-color swatch_active js-filter"
-                                        style="color: #bababa"></a>
+                                    <a href="#" class="swatch-color swatch_active js-filter" style="color: #bababa"></a>
                                     <a href="#" class="swatch-color js-filter" style="color: #bfdcc4"></a>
                                 </div>
                             </div>
@@ -109,18 +123,12 @@
                             aria-labelledby="accordion-heading-size" data-bs-parent="#size-filters">
                             <div class="accordion-body px-0 pb-0">
                                 <div class="d-flex flex-wrap">
-                                    <a href="#"
-                                        class="swatch-size btn btn-sm btn-outline-light mb-3 me-3 js-filter">XS</a>
-                                    <a href="#"
-                                        class="swatch-size btn btn-sm btn-outline-light mb-3 me-3 js-filter">S</a>
-                                    <a href="#"
-                                        class="swatch-size btn btn-sm btn-outline-light mb-3 me-3 js-filter">M</a>
-                                    <a href="#"
-                                        class="swatch-size btn btn-sm btn-outline-light mb-3 me-3 js-filter">L</a>
-                                    <a href="#"
-                                        class="swatch-size btn btn-sm btn-outline-light mb-3 me-3 js-filter">XL</a>
-                                    <a href="#"
-                                        class="swatch-size btn btn-sm btn-outline-light mb-3 me-3 js-filter">XXL</a>
+                                    <a href="#" class="swatch-size btn btn-sm btn-outline-light mb-3 me-3 js-filter">XS</a>
+                                    <a href="#" class="swatch-size btn btn-sm btn-outline-light mb-3 me-3 js-filter">S</a>
+                                    <a href="#" class="swatch-size btn btn-sm btn-outline-light mb-3 me-3 js-filter">M</a>
+                                    <a href="#" class="swatch-size btn btn-sm btn-outline-light mb-3 me-3 js-filter">L</a>
+                                    <a href="#" class="swatch-size btn btn-sm btn-outline-light mb-3 me-3 js-filter">XL</a>
+                                    <a href="#" class="swatch-size btn btn-sm btn-outline-light mb-3 me-3 js-filter">XXL</a>
                                 </div>
                             </div>
                         </div>
@@ -151,10 +159,8 @@
                                 <ul class="list list-inline mb-0 brand-list">
                                     @foreach ($brands as $brand)
                                         <li class="list-item">
-                                            <label
-                                                class="menu-link py-1 d-flex justify-content-between align-items-center">
-                                                <input type="checkbox" name="brands" value="{{ $brand->id }}"
-                                                    class="chk-brand"
+                                            <label class="menu-link py-1 d-flex justify-content-between align-items-center">
+                                                <input type="checkbox" name="brands" value="{{ $brand->id }}" class="chk-brand"
                                                     {{ in_array($brand->id, explode(',', $f_brands)) ? 'checked' : '' }}>
                                                 <span>{{ $brand->name }}</span>
                                                 <span class="text-right float-end">
@@ -189,8 +195,8 @@
                         </h5>
                         <div id="accordion-filter-price" class="accordion-collapse collapse show border-0"
                             aria-labelledby="accordion-heading-price" data-bs-parent="#price-filters">
-                            <input class="price-range-slider" type="text" name="price_range" value=""
-                                data-slider-min="1" data-slider-max="500" data-slider-step="5"
+                            <input class="price-range-slider" type="text" name="price_range" value="" data-slider-min="1"
+                                data-slider-max="500" data-slider-step="5"
                                 data-slider-value="[{{ $min_price }},{{ $max_price }}]" data-currency="$" />
                             <div class="price-range__info d-flex align-items-center mt-2">
                                 <div class="me-auto">
@@ -208,20 +214,19 @@
             </div>
 
             <div class="shop-list flex-grow-1">
-                <div class="swiper-container js-swiper-slider slideshow slideshow_small slideshow_split"
-                    data-settings='{
-          "autoplay": {
-            "delay": 5000
-          },
-          "slidesPerView": 1,
-          "effect": "fade",
-          "loop": true,
-          "pagination": {
-            "el": ".slideshow-pagination",
-            "type": "bullets",
-            "clickable": true
-          }
-        }'>
+                <div class="swiper-container js-swiper-slider slideshow slideshow_small slideshow_split" data-settings='{
+              "autoplay": {
+                "delay": 5000
+              },
+              "slidesPerView": 1,
+              "effect": "fade",
+              "loop": true,
+              "pagination": {
+                "el": ".slideshow-pagination",
+                "type": "bullets",
+                "clickable": true
+              }
+            }'>
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
                             <div class="slide-split h-100 d-block d-md-flex overflow-hidden">
@@ -297,8 +302,7 @@
                     </div>
 
                     <div class="container p-3 p-xl-5">
-                        <div
-                            class="slideshow-pagination d-flex align-items-center position-absolute bottom-0 mb-4 pb-xl-2">
+                        <div class="slideshow-pagination d-flex align-items-center position-absolute bottom-0 mb-4 pb-xl-2">
                         </div>
 
                     </div>
@@ -323,8 +327,8 @@
                             <option value="102" {{ $size == 102 ? 'selected' : '' }}>102</option>
                         </select>
 
-                        <select class="shop-acs__select form-select w-auto border-0 py-0 order-1 order-md-0"
-                            name="orderby" id="orderby" aria-label="Sort Items">
+                        <select class="shop-acs__select form-select w-auto border-0 py-0 order-1 order-md-0" name="orderby"
+                            id="orderby" aria-label="Sort Items">
                             <option value="-1" {{ $order == -1 ? 'selected' : '' }}>Default Sorting</option>
                             <option value="1" {{ $order == 1 ? 'selected' : '' }}>Date, New to Old</option>
                             <option value="2" {{ $order == 2 ? 'selected' : '' }}>Date, Old to New</option>
@@ -347,8 +351,8 @@
                         <div class="shop-filter d-flex align-items-center order-0 order-md-3 d-lg-none">
                             <button class="btn-link btn-link_f d-flex align-items-center ps-0 js-open-aside"
                                 data-aside="shopFilter">
-                                <svg class="d-inline-block align-middle me-2" width="14" height="10"
-                                    viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <svg class="d-inline-block align-middle me-2" width="14" height="10" viewBox="0 0 14 10"
+                                    fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <use href="#icon_filter" />
                                 </svg>
                                 <span class="text-uppercase fw-medium d-inline-block align-middle">Filter</span>
@@ -367,10 +371,8 @@
                                             {{-- Main Image --}}
                                             <div class="swiper-slide">
                                                 <a href="{{ route('shop.product-details', $product->slug) }}">
-                                                    <img loading="lazy"
-                                                        src="{{ asset('uploads/products/' . $product->image) }}"
-                                                        width="330" height="400" alt="{{ $product->name }}"
-                                                        class="pc__img">
+                                                    <img loading="lazy" src="{{ asset('uploads/products/' . $product->image) }}"
+                                                        width="330" height="400" alt="{{ $product->name }}" class="pc__img">
                                                 </a>
                                             </div>
 
@@ -381,8 +383,7 @@
                                                         <a href="{{ route('shop.product-details', $product->slug) }}">
                                                             <img loading="lazy"
                                                                 src="{{ asset('uploads/products/gallery/' . $galleryImage) }}"
-                                                                width="330" height="400" alt="{{ $product->name }}"
-                                                                class="pc__img">
+                                                                width="330" height="400" alt="{{ $product->name }}" class="pc__img">
                                                         </a>
                                                     </div>
                                                 @endforeach
@@ -390,14 +391,12 @@
                                         </div>
 
                                         <span class="pc__img-prev">
-                                            <svg width="7" height="11" viewBox="0 0 7 11"
-                                                xmlns="http://www.w3.org/2000/svg">
+                                            <svg width="7" height="11" viewBox="0 0 7 11" xmlns="http://www.w3.org/2000/svg">
                                                 <use href="#icon_prev_sm" />
                                             </svg>
                                         </span>
                                         <span class="pc__img-next">
-                                            <svg width="7" height="11" viewBox="0 0 7 11"
-                                                xmlns="http://www.w3.org/2000/svg">
+                                            <svg width="7" height="11" viewBox="0 0 7 11" xmlns="http://www.w3.org/2000/svg">
                                                 <use href="#icon_next_sm" />
                                             </svg>
                                         </span>
@@ -425,8 +424,7 @@
                                     <p class="pc__category">{{ $product->category->name ?? 'Uncategorized' }}</p>
 
                                     <h6 class="pc__title">
-                                        <a
-                                            href="{{ route('shop.product-details', $product->slug) }}">{{ $product->name }}</a>
+                                        <a href="{{ route('shop.product-details', $product->slug) }}">{{ $product->name }}</a>
                                     </h6>
 
                                     <div class="product-card__price d-flex">
@@ -436,8 +434,7 @@
                                             <span
                                                 class="money price price-sale">${{ number_format($product->sale_price, 2) }}</span>
                                         @else
-                                            <span
-                                                class="money price">${{ number_format($product->regular_price, 2) }}</span>
+                                            <span class="money price">${{ number_format($product->regular_price, 2) }}</span>
                                         @endif
                                     </div>
 
@@ -449,8 +446,7 @@
                                             <button
                                                 class="pc__btn-wl position-absolute top-0 end-0 bg-transparent border-0 js-add-wishlist"
                                                 title="Remove from Wishlist" type="submit">
-                                                <svg width="16" height="16" style="color: orange"
-                                                    viewBox="0 0 20 20" fill="none"
+                                                <svg width="16" height="16" style="color: orange" viewBox="0 0 20 20" fill="none"
                                                     xmlns="http://www.w3.org/2000/svg">
                                                     <use href="#icon_heart" />
                                                 </svg>
@@ -498,7 +494,7 @@
         <input type="hidden" name="size" id="size" value="{{ $size }}">
         <input type="hidden" name="order" id="order" value="{{ $order }}">
         <input type="hidden" name="brands" id="hdnBrands" value="{{ $f_brands }}">
-        <input type="hidden" name="categories" id="hdncategories" value="{{ $f_categories }}">
+        <input type="hidden" name="categories" id="hdnCategories" value="{{ $f_categories }}">
         <input type="hidden" name="min" id="hdnMinPrice" value="{{ $min_price }}">
         <input type="hidden" name="max" id="hdnMaxPrice" value="{{ $max_price }}">
 
@@ -506,31 +502,42 @@
 @endsection
 @push('scripts')
     <script>
-        $(function() {
-            $("#pagesize").on("change", function() {
+        $(function () {
+            $("#pagesize").on("change", function () {
                 $("#size").val($(this).val());
                 $("#frmfilter").submit();
             });
 
-            $("#orderby").on("change", function() {
+            $("#orderby").on("change", function () {
                 $("#order").val($(this).val());
                 $("#frmfilter").submit();
             });
 
-            $("input[name='brands']").on("change", function() {
-                var brands = [];
-                $("input[name='brands']:checked").each(function() {
-                    brands.push($(this).val());
+            $("input[name='brands']").on("change", function () {
+                var brands = "";
+
+                $("input[name='brands']:checked").each(function () {
+                    if (brands !== "") {
+                        brands += ",";
+                    }
+                    brands += $(this).val();
                 });
-                $("#hdnBrands").val(brands.join(','));
+
+                $("#hdnBrands").val(brands); 
                 $("#frmfilter").submit();
             });
-            $("input[name='categories']").on("change", function() {
-                var brands = [];
-                $("input[name='categories']:checked").each(function() {
-                    brands.push($(this).val());
+
+            $("input[name='categories']").on("change", function () {
+                var categories = "";
+
+                $("input[name='categories']:checked").each(function () {
+                    if (categories !== "") {
+                        categories += ",";
+                    }
+                    categories += $(this).val();
                 });
-                $("#hdncategories").val(brands.join(','));
+
+                $("#hdnCategories").val(categories); 
                 $("#frmfilter").submit();
             });
 
@@ -540,15 +547,13 @@
 
                 $("#hdnMinPrice").val(min);
                 $("#hdnMaxPrice").val(max);
-                console.log(min);
-                console.log(max);
 
                 setTimeout(() => {
                     $("#frmfilter").submit();
                 }, 2000);
 
 
-            })
+            });
         });
     </script>
 @endpush

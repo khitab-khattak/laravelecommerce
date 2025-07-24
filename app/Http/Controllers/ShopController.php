@@ -16,6 +16,9 @@ class ShopController extends Controller
         $f_brands = $request->query('brands', '');
         $f_categories = $request->query('categories', '');
         $order = $request->query('order', -1);
+        
+        $min_price = $request->query('min') ? $request->query('min') : 1;
+        $max_price = $request->query('max') ? $request->query('max') : 500;
 
         $o_column = 'id';
         $o_order = 'DESC';
@@ -31,49 +34,26 @@ class ShopController extends Controller
                 $o_order = 'ASC';
                 break;
             case 3:
-                $o_column = 'price';
+                $o_column = 'sale_price';
                 $o_order = 'ASC';
                 break;
             case 4:
-                $o_column = 'price';
+                $o_column = 'sale_price';
                 $o_order = 'DESC';
                 break;
         }
 
-        $brandIds = array_filter(explode(',', $f_brands));
-        $categoryIds = array_filter(explode(',', $f_categories));
-        $min_price = $request->query('min') ? $request->query('min') : 1;
-        $max_price = $request->query('max') ? $request->query('max') : 500;
-
-        $query = Product::query();
-
-        if (!empty($categoryIds)) {
-            $query->whereIn('category_id', $categoryIds);
-        }
-        // Filter by brands if selected
-        if (!empty($brandIds)) {
-            $query->whereIn('brand_id', $brandIds);
-        }
-      
-        // Handle sorting by price (sale or regular)
-        if ($o_column === 'price') {
-            $query->orderByRaw("COALESCE(sale_price, regular_price) $o_order");
-        } else {
-            $query->orderBy($o_column, $o_order);
-        }
-        $query->where(function ($q) use ($min_price, $max_price) {
-            $q->whereBetween('sale_price', [$min_price, $max_price])
-              ->orWhere(function ($q2) use ($min_price, $max_price) {
-                  $q2->whereNull('sale_price')
-                     ->whereBetween('regular_price', [$min_price, $max_price]);
-              });
-        });
-
-        $products = $query->paginate($size)->withQueryString();
-       
         $categories = Category::orderBy('name','ASC')->get();
 
-        $brands = Brand::withCount('products')->orderBy('name', 'ASC')->get();
+        $brands = Brand::orderBy('name','ASC')->get();
+        $products = Product::where(function($query)use($f_brands){
+            $query->whereIn('brand_id',explode(',',$f_brands))->orWhereRaw("'".$f_brands."'=''");
+        })->where(function($query)use($f_categories){
+            $query->whereIn('category_id',explode(',',$f_categories))->orWhereRaw("'".$f_categories."'=''");
+        })->where(function($query) use($min_price,$max_price){
+            $query->whereBetween('regular_price',[$min_price,$max_price])->orWhereBetween('sale_price',[$min_price,$max_price]);
+        })
+        ->orderBy($o_column,$o_order)->paginate($size);
 
         return view('shop', compact('products', 'size', 'order', 'brands', 'f_brands','categories','f_categories','min_price','max_price'));
     }
