@@ -19,8 +19,70 @@
         integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw=="
         crossorigin="anonymous" referrerpolicy="no-referrer">
     @stack('styles')
-    
+
 </head>
+<style>
+    .search-popup__results {
+        background: #fff;
+        border: 1px solid #ddd;
+        margin-top: 10px;
+        border-radius: 6px;
+        max-height: 400px;
+        overflow-y: auto;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+    
+    #box-content-search {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    
+    #box-content-search li {
+        display: flex;
+        align-items: center;
+        padding: 10px 15px;
+        border-bottom: 1px solid #f1f1f1;
+        transition: background-color 0.2s ease;
+    }
+    
+    #box-content-search li:hover {
+        background-color: #f9f9f9;
+    }
+    
+    #box-content-search img {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        margin-right: 15px;
+        border-radius: 6px;
+        border: 1px solid #e0e0e0;
+    }
+    
+    #box-content-search .product-info {
+        flex-grow: 1;
+    }
+    
+    #box-content-search .product-name {
+        font-weight: 500;
+        margin-bottom: 4px;
+        color: #333;
+    }
+    
+    #box-content-search .product-link {
+        color: #333;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        width: 100%;
+    }
+    
+    #box-content-search .product-link:hover .product-name {
+        text-decoration: underline;
+    }
+    </style>
+    
+    
 
 
 <body class="gradient-bg">
@@ -261,8 +323,7 @@
     <div class="header-mobile header_sticky">
         <div class="container d-flex align-items-center h-100">
             <a class="mobile-nav-activator d-block position-relative" href="#">
-                <svg class="nav-icon" width="25" height="18" viewBox="0 0 25 18"
-                    xmlns="http://www.w3.org/2000/svg">
+                <svg class="nav-icon" width="25" height="18" viewBox="0 0 25 18" xmlns="http://www.w3.org/2000/svg">
                     <use href="#icon_nav" />
                 </svg>
                 <button class="btn-close-lg position-absolute top-0 start-0 w-100"></button>
@@ -288,8 +349,8 @@
             <div class="container">
                 <form action="#" method="GET" class="search-field position-relative mt-4 mb-3">
                     <div class="position-relative">
-                        <input class="search-field__input w-100 border rounded-1" type="text"
-                            name="search-keyword" placeholder="Search products" />
+                        <input class="search-field__input w-100 border rounded-1" type="text" name="search-keyword"
+                            placeholder="Search products" />
                         <button class="btn-icon search-popup__submit pb-0 me-2" type="submit">
                             <svg class="d-block" width="20" height="20" viewBox="0 0 20 20" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -329,8 +390,8 @@
 
             <div class="border-top mt-auto pb-2">
                 <div class="customer-links container mt-4 mb-2 pb-1">
-                    <svg class="d-inline-block align-middle" width="20" height="20" viewBox="0 0 20 20"
-                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg class="d-inline-block align-middle" width="20" height="20" viewBox="0 0 20 20" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
                         <use href="#icon_user" />
                     </svg>
                     <span class="d-inline-block ms-2 text-uppercase align-middle fw-medium">My Account</span>
@@ -357,8 +418,8 @@
                     </li>
                     <li>
                         <a href="#" class="footer__social-link d-block">
-                            <svg class="svg-icon svg-icon_instagram" width="14" height="13"
-                                viewBox="0 0 14 13" xmlns="http://www.w3.org/2000/svg">
+                            <svg class="svg-icon svg-icon_instagram" width="14" height="13" viewBox="0 0 14 13"
+                                xmlns="http://www.w3.org/2000/svg">
                                 <use href="#icon_instagram" />
                             </svg>
                         </a>
@@ -374,8 +435,8 @@
                     </li>
                     <li>
                         <a href="#" class="footer__social-link d-block">
-                            <svg class="svg-icon svg-icon_pinterest" width="14" height="15"
-                                viewBox="0 0 14 15" xmlns="http://www.w3.org/2000/svg">
+                            <svg class="svg-icon svg-icon_pinterest" width="14" height="15" viewBox="0 0 14 15"
+                                xmlns="http://www.w3.org/2000/svg">
                                 <use href="#icon_pinterest" />
                             </svg>
                         </a>
@@ -391,8 +452,7 @@
             <div class="header-desk header-desk_type_1">
                 <div class="logo">
                     <a href="{{ route('home.index') }}">
-                        <img src="{{ asset('assets/images/logo.png') }}" alt="Uomo"
-                            class="logo__image d-block" />
+                        <img src="{{ asset('assets/images/logo.png') }}" alt="Uomo" class="logo__image d-block" />
                     </a>
                 </div>
 
@@ -420,8 +480,8 @@
                     <div class="header-tools__item hover-container">
                         <div class="js-hover__open position-relative">
                             <a class="js-search-popup search-field__actor" href="#">
-                                <svg class="d-block" width="20" height="20" viewBox="0 0 20 20"
-                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <svg class="d-block" width="20" height="20" viewBox="0 0 20 20" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
                                     <use href="#icon_search" />
                                 </svg>
                                 <i class="btn-icon btn-close-lg"></i>
@@ -432,11 +492,11 @@
                             <form action="#" method="GET" class="search-field container">
                                 <p class="text-uppercase text-secondary fw-medium mb-4">What are you looking for?</p>
                                 <div class="position-relative">
-                                    <input class="search-field__input search-popup__input w-100 fw-medium"
-                                        type="text" name="search-keyword" placeholder="Search products" />
+                                    <input class="search-field__input search-popup__input w-100 fw-medium" type="text"
+                                        id="search-input" name="search-keyword" placeholder="Search products" />
                                     <button class="btn-icon search-popup__submit" type="submit">
-                                        <svg class="d-block" width="20" height="20" viewBox="0 0 20 20"
-                                            fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <svg class="d-block" width="20" height="20" viewBox="0 0 20 20" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
                                             <use href="#icon_search" />
                                         </svg>
                                     </button>
@@ -444,25 +504,7 @@
                                 </div>
 
                                 <div class="search-popup__results">
-                                    <div class="sub-menu search-suggestion">
-                                        <h6 class="sub-menu__title fs-base">Quicklinks</h6>
-                                        <ul class="sub-menu__list list-unstyled">
-                                            <li class="sub-menu__item"><a href="shop2.html"
-                                                    class="menu-link menu-link_us-s">New Arrivals</a>
-                                            </li>
-                                            <li class="sub-menu__item"><a href="#"
-                                                    class="menu-link menu-link_us-s">Dresses</a></li>
-                                            <li class="sub-menu__item"><a href="shop3.html"
-                                                    class="menu-link menu-link_us-s">Accessories</a>
-                                            </li>
-                                            <li class="sub-menu__item"><a href="#"
-                                                    class="menu-link menu-link_us-s">Footwear</a></li>
-                                            <li class="sub-menu__item"><a href="#"
-                                                    class="menu-link menu-link_us-s">Sweatshirt</a></li>
-                                        </ul>
-                                    </div>
-
-                                    <div class="search-result row row-cols-5"></div>
+                                    <ul id="box-content-search"></ul>
                                 </div>
                             </form>
                         </div>
@@ -491,24 +533,26 @@
 
 
                     <a href="{{route('wishlist.index')}}" class="header-tools__item header-tools__cart">
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <use href="#icon_heart" />
                         </svg>
-                        @if (Cart::instance('wishlist')->content()->count()>0)
-                        <span class="cart-amount d-block position-absolute js-cart-items-count">{{ Cart::instance('wishlist')->content()->count() }}</span>     
+                        @if (Cart::instance('wishlist')->content()->count() > 0)
+                            <span
+                                class="cart-amount d-block position-absolute js-cart-items-count">{{ Cart::instance('wishlist')->content()->count() }}</span>
                         @endif
                     </a>
+
 
                     <a href="{{ route('cart.index') }}" class="header-tools__item header-tools__cart">
                         <svg class="d-block" width="20" height="20" viewBox="0 0 20 20" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <use href="#icon_cart" />
                         </svg>
-                        @if (Cart::instance('cart')->content()->count()>0)
-                        <span class="cart-amount d-block position-absolute js-cart-items-count">{{ Cart::instance('cart')->content()->count() }}</span>     
+                        @if (Cart::instance('cart')->content()->count() > 0)
+                            <span
+                                class="cart-amount d-block position-absolute js-cart-items-count">{{ Cart::instance('cart')->content()->count() }}</span>
                         @endif
-                        
+
                     </a>
                 </div>
             </div>
@@ -530,6 +574,51 @@
     <script src="{{ asset('assets/js/plugins/bootstrap-slider.min.js') }}"></script>
     <script src="{{ asset('assets/js/plugins/swiper.min.js') }}"></script>
     <script src="{{ asset('assets/js/plugins/countdown.js') }}"></script>
+    <script>
+        $(function () {
+            $("#search-input").on("keyup", function () {
+                var searchQuery = $(this).val().trim();
+        
+                if (searchQuery.length > 2) {
+                    $.ajax({
+                        type: "GET",
+                        url: "{{ route('home.search') }}",
+                        data: { query: searchQuery },
+                        dataType: 'json',
+                        success: function (data) {
+                            $("#box-content-search").html('');
+        
+                            if (data.length === 0) {
+                                $("#box-content-search").html('<li class="px-3 py-2 text-muted">No results found</li>');
+                                return;
+                            }
+        
+                            $.each(data, function (index, item) {
+                                var url = "{{ route('shop.product-details', ['product_slug' => 'product_slug_pls']) }}";
+                                var link = url.replace('product_slug_pls', item.slug);
+        
+                                $("#box-content-search").append(`
+                                    <li>
+                                        <a href="${link}" class="product-link">
+                                            <img src="{{ asset('uploads/products') }}/${item.image}" alt="${item.name}">
+                                            <div class="product-info">
+                                                <div class="product-name">${item.name}</div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                `);
+                            });
+                        }
+                    });
+                } else {
+                    $("#box-content-search").html('');
+                }
+            });
+        });
+        </script>
+        
+        
+    
     <script src="{{ asset('assets/js/theme.js') }}"></script>
     @stack('scripts')
 </body>

@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/',[HomeController::class,'index'])->name('home.index');
 Route::get('/contact-us',[HomeController::class,'contact'])->name('home.contact');
 Route::post('/contact/store',[HomeController::class,'contact_store'])->name('home.contactStore');
+Route::get('/serach',[HomeController::class,'search'])->name('home.search');
 
 
 
